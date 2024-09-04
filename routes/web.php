@@ -29,17 +29,17 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('dashboard');
 	})->name('dashboard');
 
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
-
-	Route::get('user-management', function () {
+	Route::get('data-pengguna', function () {
 		return view('user-management');
-	})->name('user-management');
+	})->name('data-pengguna');
 
-	Route::get('tables', function () {
-		return view('tables');
-	})->name('tables');
+	Route::get('data-suplier', function () {
+		return view('data_suplier');
+	})->name('data-suplier');
+
+	Route::get('data-barang', function () {
+		return view('data_barang');
+	})->name('data-barang');
 
 	Route::get('barang-masuk', function () {
 		return view('barang_masuk');
@@ -49,13 +49,21 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('barang_keluar');
 	})->name('barang-keluar');
 
+	Route::get('tambah-barang-keluar', function () {
+		return view('tambah_barang_keluar');
+	})->name('tambah-barang-keluar');
+
 	Route::get('stok-opname', function () {
 		return view('stok_opname');
 	})->name('stok-opname');
 
-    Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
+    Route::get('detail-stok-opname', function () {
+		return view('detail_so');
+	})->name('Detail Stok Opname');
+
+	Route::get('detail-barang-masuk', function () {
+		return view('detail_barang_masuk');
+	})->name('detail-barang-masuk');
 
     Route::get('static-sign-in', function () {
 		return view('static-sign-in');

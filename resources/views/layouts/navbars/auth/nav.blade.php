@@ -18,14 +18,16 @@
             <h6 class="font-weight-bolder mb-0 text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 d-flex justify-content-end" id="navbar"> 
-            <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-                <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0">
-                    <i class="fa fa-user me-sm-1"></i>
-                    <span class="d-sm-inline d-none">Sign Out</span>
-                </a>
+            <ul class="navbar-nav  justify-content-end"><u class="text-success">
+            <li class="nav-item d-flex align-items-center text-success">
+                <p class="text-success mt-3 px-2">Irwan</p></u>
+                <i class="fa-regular fa-circle-user me-sm-1"></i>
             </li>
-            </ul>
+            <li class="nav-item d-flex align-items-center text-danger">
+                <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold">
+                    <span class="d-sm-inline d-none">Sign Out</span>
+                    <i class="fa-solid fa-right-from-bracket text-danger px-1"></i>
+                </a>
             </li>
             </ul>
         </div>

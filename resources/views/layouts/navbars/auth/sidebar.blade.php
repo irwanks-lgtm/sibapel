@@ -33,28 +33,9 @@
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('dashboard') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-table-columns" style="font-size: 1rem; {{ (Request::is('dashboard') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('dashboard') ? 'text-dark' : 'text-white') }}">Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item mt-2">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Manajemen User</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (Request::is('user-profile') ? 'active' : '') }} " href="{{ url('user-profile') }}">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('user-profile') ? 'color:white;' : 'color:black;') }}"></i>
-            </div>
-            <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('user-profile') ? 'text-dark' : 'text-white') }}">Profil Pengguna</span>
-        </a>
-      </li>
-      <li class="nav-item pb-2">
-        <a class="nav-link {{ (Request::is('user-management') ? 'active' : '') }}" href="{{ url('user-management') }}">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ (Request::is('user-management') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
-            </div>
-            <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('user-management') ? 'text-dark' : 'text-white') }}">Data Pengguna</span>
         </a>
       </li>
       <li class="nav-item mt-2">
@@ -63,7 +44,7 @@
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('barang-masuk') ? 'active' : '') }}" href="{{ url('barang-masuk') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('barang-masuk') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-box-open" style="font-size: 1rem; {{ (Request::is('barang-masuk') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('barang-masuk') ? 'text-dark' : 'text-white') }}">Barang Masuk</span>
         </a>
@@ -71,7 +52,7 @@
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('barang-keluar') ? 'active' : '') }}" href="{{ url('barang-keluar') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('barang-keluar') ? 'color:white;' : 'color:black;') }}"></i>
+            <i class="fa-solid fa-boxes-packing" style="font-size: 1rem; {{ (Request::is('barang-keluar') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('barang-keluar') ? 'text-dark' : 'text-white') }}">Barang Keluar</span>
         </a>
@@ -79,28 +60,35 @@
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('stok-opname') ? 'active' : '') }}" href="{{ url('stok-opname') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('stok-opname') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-dolly" style="font-size: 1rem; {{ (Request::is('stok-opname') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('stok-opname') ? 'text-dark' : 'text-white') }}">Stok Opname</span>
         </a>
       </li>
       <li class="nav-item mt-2">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Laporan</h6>
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Manajemen Data</h6>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('tables') ? 'active' : '') }}" href="{{ url('tables') }}">
+        <a class="nav-link {{ (Request::is('data-pengguna') ? 'active' : '') }}" href="{{ url('data-pengguna') }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i style="font-size: 1rem;" class="fas fa-people-group ps-2 pe-2 {{ (Request::is('data-pengguna') ? 'text-white' : 'text-dark') }} "></i>
+            </div>
+            <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-pengguna') ? 'text-dark' : 'text-white') }}">Data Pengguna</span>
+        </a>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('data-suplier') ? 'active' : '') }}" href="{{ url('data-suplier') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('barang-keluar') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-users-gear" style=" font-size: 1rem;{{ (Request::is('data-suplier') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
-          <span class="nav-link-text font-weight-bold ms-1">Laporan Penjualan</span>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-suplier') ? 'text-dark' : 'text-white') }}">Data Suplier</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('tables') ? 'active' : '') }}" href="{{ url('tables') }}">
+        <a class="nav-link {{ (Request::is('data-barang') ? 'active' : '') }}" href="{{ url('data-barang') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="{{ (Request::is('barang-keluar') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-boxes-stacked" style="font-size: 1rem; {{ (Request::is('data-barang') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
-          <span class="nav-link-text font-weight-bold ms-1">Laporan Barang</span>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-barang') ? 'text-dark' : 'text-white') }}">Data Barang</span>
         </a>
       </li>
     </ul>

@@ -12,9 +12,9 @@
           <div class="card mb-4">
             <div class="card-header d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Stok Opname</h5>
+                    <h5 class="mb-0">Laporan Barang</h5>
                 </div>
-                <a href="#" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Data</a>
+                <a href="{{ url()->previous() }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Back</a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -46,7 +46,7 @@
                         <p class="text-xs font-weight-bold mb-0">PROSES</p>
                       </td>
                       <td class="align-middle">
-                        <a href="detail-stok-opname" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
+                        <a href="#" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
                           <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
                         <a href="#" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">

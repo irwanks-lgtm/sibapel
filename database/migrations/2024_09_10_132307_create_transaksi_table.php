@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kode_barang', length: 25);
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
             $table->string('id_pengguna', length: 50);
-            $table->foreign('id_pengguna')->references('id_pengguna')->on('pengguna');
+            $table->foreign('id_pengguna')->references('id')->on('users');
             $table->string('jenis_transaksi', length: 30);
             $table->string('qty', length: 10);
             $table->string('harga', length: 20);

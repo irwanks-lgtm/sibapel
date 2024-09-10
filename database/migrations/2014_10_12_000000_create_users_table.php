@@ -4,32 +4,39 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('pengguna', function (Blueprint $table) {
-            $table->string('id_pengguna', length: 50)->unique();
-            $table->primary('id_pengguna');
+        Schema::create('users', function (Blueprint $table) {
+            $table->string('id', length: 50)->unique();
+            $table->primary('id');
+            $table->string('email', length: 50);
             $table->string('nama_pengguna', length: 50);
             $table->string('password', length: 80);
             $table->string('alamat', length: 80);
-            $table->date('tempat_lhr');
+            $table->string('tempat_lhr', length: 30);
             $table->date('tgl_lhr');
             $table->string('nomor_hp', length: 13);
             $table->date('tgl_masuk');
             $table->string('role', length: 20);
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('pengguna');
+        Schema::dropIfExists('users');
     }
-};
+}

@@ -12,4 +12,31 @@ use Laravel\Sanctum\HasApiTokens;
 class Pengguna extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'id_pengguna',
+        'nama_pengguna',
+        'alamat',
+        'tempat_lhr',
+        'tgl_lhr',
+        'nomor_hp',
+        'tgl_masuk',
+        'role',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
 }

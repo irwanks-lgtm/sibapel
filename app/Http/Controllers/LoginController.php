@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
+
 
 class LoginController extends Controller
 {
@@ -12,9 +13,23 @@ class LoginController extends Controller
     {
         return view('session.login-session');
     }
-    
-    public function store(){
-        $users = DB::select('select * from users');
 
+    public function store()
+    {
+        
+        $attributes = request()->validate([
+            'email'=>'required|email',
+            'password'=>'required' 
+        ]);
+        
+        if(Auth::attempt($attributes))
+        {
+            //session()->regenerate();
+            return redirect('dashboard')->with(['success'=>'You are logged in.']);
+        }
+        else{
+
+            return back()->withErrors(['email'=>'Email or password invalid.']);
+        }
     }
 }

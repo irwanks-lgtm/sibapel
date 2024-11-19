@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $date = date_create('2000-01-01');
         date_format($date, 'Y-m-d');
-        DB::table('users')->insert([
+        DB::table('user')->insert([
             'id' => 1234,
             'email' => 'irwan@gmail.com',
             'nama_pengguna' => 'irwan kurniadi',

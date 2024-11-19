@@ -35,7 +35,16 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
 </head>
+<style>
+  #successMessage {
+  position: absolute;
+  top: 5%;
+  width: 20%;
+  left: 40%;
+  text-align: center;
+}
 
+</style>
 <body class="g-sidenav-show  bg-gray-100 ">
   @auth
     @yield('auth')
@@ -45,12 +54,10 @@
   @endguest
 
   @if(session()->has('success'))
-    <div x-data="{ show: true}"
-        x-init="setTimeout(() => show = false, 4000)"
-        x-show="show"
-        class="position-fixed bg-success rounded right-3 text-sm py-2 px-4">
-      <p class="m-0">{{ session('success')}}</p>
-    </div>
+  <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 3000); </script>
+      <div id="successMessage" class="bg-success rounded py-1 px-3">
+        <p class="m-4">{{ session('success')}}</p>
+      </div>
   @endif
     <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
@@ -62,6 +69,7 @@
   @stack('rtl')
   @stack('dashboard')
   <script>
+    
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {

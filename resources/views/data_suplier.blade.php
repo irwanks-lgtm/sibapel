@@ -12,100 +12,60 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">All Users</h5>
+                            <h5 class="mb-0">Data Suplier</h5>
                         </div>
-                        <a href="#" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New User</a>
+                        <a href="tambah-suplier" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ID
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Nama
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        No. HP
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tempat, tgl lahir
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        role
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tgl bergabung
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">1</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">Irwan Kurniadi Santoso</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">085702444391</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Semarang, 26 April 2000</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Admin</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23 November 2023</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">1</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">Irwan Kurniadi Santoso</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">085702444391</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Semarang, 26 April 2000</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Admin</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23 November 2023</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+              <div class="table-responsive p-0">
+                <table class="table align-items-center table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id suplier</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nama suplier</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">alamat</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no. hp</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">pembayaran</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan </th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action </th>
+                    </tr>
+                  </thead>
+                  <?php foreach($suplier as $sup) { ?>
+                    <tbody class="text-center">
+                    <tr>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->id_suplier; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->nama_suplier; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->alamat; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->telp; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->pembayaran; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?php if(!$sup->keterangan){ echo "----"; }else{ echo $sup->keterangan; } ?></p>
+                      </td>
+                      <td class="align-middle">
+                        <a href="#" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                          <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                        <a href="hapussup/{{$sup->id_suplier}}" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">
+                          <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <?php } ?>                   
+                </table>
+              </div>
+            </div>
             </div>
         </div>
     </div>

@@ -91,6 +91,36 @@
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-barang') ? 'text-dark' : 'text-white') }}">Data Barang</span>
         </a>
       </li>
+      <li class="nav-item mt-2">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Penjualan</h6>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('pos') ? 'active' : '') }}" href="{{ url('pos') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-cart-shopping" style="font-size: 1rem; {{ (Request::is('pos') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('pos') ? 'text-dark' : 'text-white') }}">Point Of Sale</span>
+        </a>
+      </li>
+      <li class="nav-item mt-2">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Laporan</h6>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('pos') ? 'active' : '') }}" href="{{ url('pos') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-money-bill-wave" style="font-size: 1rem; {{ (Request::is('pos') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('pos') ? 'text-dark' : 'text-white') }}">Laporan Penjualan</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('pos') ? 'active' : '') }}" href="{{ url('pos') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-check-to-slot" style="font-size: 1rem; {{ (Request::is('pos') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('pos') ? 'text-dark' : 'text-white') }}">Laporan Transaksi</span>
+        </a>
+      </li>
     </ul>
   </div>
 </aside>

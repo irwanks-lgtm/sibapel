@@ -7,6 +7,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\SuplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -34,17 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('user-management');
 	})->name('data-pengguna');
 
-	Route::get('data-suplier', function () {
-		return view('data_suplier');
-	})->name('data-suplier');
+	Route::get('data-suplier', [SuplierController::class, 'show'])->name('data-suplier');
 
 	Route::get('data-barang', function () {
 		return view('data_barang');
 	})->name('data-barang');
 
-	Route::get('barang-masuk', function () {
-		return view('barang_masuk');
-	})->name('barang-masuk');
+	Route::get('barang-masuk', [BarangController::class, 'show'])->name('barang-masuk');
 
 	Route::get('barang-keluar', function () {
 		return view('barang_keluar');
@@ -53,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('tambah-barang-keluar', function () {
 		return view('tambah_barang_keluar');
 	})->name('tambah-barang-keluar');
+
+	Route::get('tambah-barang-masuk', [BarangController::class, 'tambahbarang'])->name('tambah-barang-masuk');
 
 	Route::get('stok-opname', function () {
 		return view('stok_opname');
@@ -73,6 +73,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
+
+	Route::post('/tambah', [BarangController::class, 'tambah']);
+	Route::get('hapus/{id}', [BarangController::class, 'hapus']);
+
+	Route::post('/tambahsuplier', [SuplierController::class, 'tambah']);
+	Route::get('tambah-suplier', function () { return view('tambah_suplier');})->name('tambah-suplier');
+	Route::get('hapussup/{id}', [SuplierController::class, 'hapus']);
 
     Route::get('/logout', [SessionsController::class, 'destroy']);
     Route::get('/login', function () {

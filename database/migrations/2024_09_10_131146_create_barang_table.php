@@ -19,13 +19,14 @@ return new class extends Migration
             $table->string('barcode', length: 30);
             $table->string('nama_barang', length: 80);
             $table->string('satuan', length: 20);
+            $table->integer('jml_brg');
             $table->string('harga_beli', length: 15);
             $table->string('harga_jual', length: 15);
             $table->string('jenis_barang', length: 20);
             $table->string('kode_rak', length: 15);
             $table->foreign('kode_rak')->references('kode_rak')->on('rak');
             $table->date('tgl_masuk');
-            $table->string('qty_min', length: 10);
+            $table->integer('qty_min');
             $table->string('foto', length: 30);
 
         });

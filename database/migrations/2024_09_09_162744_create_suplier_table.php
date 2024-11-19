@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('telp', length: 20);
             $table->string('kategori', length: 20);
             $table->string('pembayaran', length: 20);
-            $table->date('tempo');
+            $table->string('keterangan', length: 20);
         });
     }
 

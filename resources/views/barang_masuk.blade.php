@@ -16,53 +16,50 @@
                 <div>
                     <h5 class="mb-0">Tabel Barang Masuk</h5>
                 </div>
-                <a href="#" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Data</a>
+                <a href="tambah-barang-masuk" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Data</a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center table-hover mb-0">
                   <thead>
                     <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Transaksi</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Barang</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Barcode</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Satuan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga Beli</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga Jual</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Suplier</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jml Min</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tgl Masuk</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center">
+                  <?php foreach($barang as $brg) { ?>
+                    <tbody class="text-center">
                     <tr>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">BM001140324</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->kode_barang; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">B4012</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->nama_barang; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">10241285748</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->jml_brg; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Mesin Cuci Ma..</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->satuan; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">pcs</p>
+                        <p class="text-xs font-weight-bold mb-0">@currency($brg->harga_beli)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Rp. 800.000</p>
+                        <p class="text-xs font-weight-bold mb-0">@currency($brg->harga_jual)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Rp. 1.300.000</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->qty_min; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">MASPION</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">10</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php $date = date_create($brg->tgl_masuk); echo DATE_FORMAT($date, "d-m-Y"); ?></p>
                       </td>
                       <td class="align-middle">
                         <a href="detail-barang-masuk" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
@@ -71,12 +68,13 @@
                         <a href="#" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-                        <a href="#" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">
+                        <a href="hapus/{{ $brg->kode_barang }}" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">
                           <i class="fa-regular fa-trash-can"></i>
                         </a>
                       </td>
                     </tr>
                   </tbody>
+                  <?php } ?>
                 </table>
               </div>
             </div>

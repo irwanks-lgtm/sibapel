@@ -14,7 +14,7 @@
             <div class="col-8">
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Barang</p>
-                <h5 class="font-weight-bolder mb-0">jml brg
+                <h5 class="font-weight-bolder mb-0">{{$jmlBrg}}
                 </h5>
               </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="col-8">
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Pengguna</p>
-                <h5 class="font-weight-bolder mb-0">jml karyawan
+                <h5 class="font-weight-bolder mb-0">{{$jmlUser}}
                 </h5>
               </div>
             </div>
@@ -55,8 +55,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Suplier</p>
                 <h5 class="font-weight-bolder mb-0">
-                  +3,462
-                  <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                {{$jmlSup}}
                 </h5>
               </div>
             </div>
@@ -77,8 +76,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Penjualan</p>
                 <h5 class="font-weight-bolder mb-0">
-                  $103,430
-                  <span class="text-success text-sm font-weight-bolder">+5%</span>
+                  @currency($total)
                 </h5>
               </div>
             </div>

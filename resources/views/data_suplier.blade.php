@@ -14,7 +14,9 @@
                         <div>
                             <h5 class="mb-0">Data Suplier</h5>
                         </div>
-                        <a href="tambah-suplier" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah</a>
+                        <?php if(Str::contains(Session::get('idUser'), 'ADM')){ ?>
+                          <a href="tambah-suplier" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Data</a>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -44,7 +46,7 @@
                         <p class="text-xs font-weight-bold mb-0"><?php echo $sup->alamat; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->telp; ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $sup->no_hp; ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?php echo $sup->pembayaran; ?></p>
@@ -53,7 +55,7 @@
                         <p class="text-xs font-weight-bold mb-0"><?php if(!$sup->keterangan){ echo "----"; }else{ echo $sup->keterangan; } ?></p>
                       </td>
                       <td class="align-middle">
-                        <a href="#" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                        <a href="edit-suplier/{{$sup->id_suplier}}" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                         <a href="hapussup/{{$sup->id_suplier}}" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">

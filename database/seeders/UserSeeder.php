@@ -15,21 +15,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $date = date_create('2000-01-01');
-        date_format($date, 'Y-m-d');
         DB::table('user')->insert([
-            'id' => 1234,
+            'id_pengguna' => 'ADM0001',
             'email' => 'irwan@gmail.com',
             'nama_pengguna' => 'irwan kurniadi',
             'password' => Hash::make('secret'),
             'alamat' => 'jagalan',
             'tempat_lhr' => 'semarang',
-            'tgl_lhr' => date_format($date, 'Y-m-d'),
+            'tgl_lhr' => now(),
             'nomor_hp' => '089503488468',
-            'tgl_masuk' => date_format($date, 'Y-m-d'),
+            'tgl_masuk' => now(),
             'role' => 'admin',
             'created_at' => now(),
-            'updated_at' => now()
         ]);
     }
 }

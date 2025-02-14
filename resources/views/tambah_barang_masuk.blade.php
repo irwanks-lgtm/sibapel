@@ -1,11 +1,12 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg animate__animated animate__bounceInLeft animate__delay-1s">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/af4366748c.js" crossorigin="anonymous"></script>
 
     <div class="container-fluid py-4">
@@ -20,88 +21,55 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-                  <form method="POST" action="{{ url('/tambah')}}">    
-                  @csrf              
+                  <form method="POST" action="{{ url('tambah-masuk') }}" autocomplete="off">
+                    @csrf        
                     <div class="mb-2">
                       <table>
                         <tr>
-                          
-                          <td><label>Suplier</label></td>
+                          <td><label>Nama Barang</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                            <select name="suplier" id="inputSuplier" class="form-select my-2" style="width:70%;">
-                              <option selected>Pilih Suplier...</option>
-                              <?php foreach($suplier as $sup) { ?>
-                              <option value="<?php echo $sup->id_suplier; ?>"><?php echo $sup->nama_suplier; ?></option>
+                            <select name="nmbrg" id="nmbrg" class="form-select my-2" >
+                              <option selected>Pilih Nama Barang...</option>
+                              <?php foreach ($barang as $brg) {?>
+                              <option value="<?php echo $brg->nama_barang ?>"><?php echo $brg->nama_barang ?></option>
                               <?php } ?>
                             </select>
                           </td>
                         </tr>
                         <tr>
                           <td><label>Kode Barang</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Kode Barang" name="kdbrg" id="kdbrg">
+                          <td style="padding-left: 20px;">
+                          <input type="text" class="form-control my-2" placeholder="Kode Barang" name="kodebrg" id="kodebrg" readonly>
                           </td>
                         </tr>
                         <tr>
-                          <td><label>Barcode</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Barcode" name="barcode" id="barcode">
+                          <td><label>Suplier</label></td>
+                          <td style="padding-left: 20px;">
+                          <input type="text" class="form-control my-2" placeholder="Suplier" name="suplier" id="suplier" readonly>
                           </td>
                         </tr>
                         <tr>
-                          <td><label>Nama Barang</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Nama Barang" name="nmbrg" id="nmbrg">
+                          <td><label>Jumlah Barang</label></td>
+                          <td style="padding-left: 20px;">
+                          <input type="text" class="form-control my-2" placeholder="Jumlah Barang" name="jml" id="jml" readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Pembayaran</label></td>
+                          <td style="padding-left: 20px;width:250px;">
+                          <input type="text" class="form-control my-2" placeholder="Pembayaran" name="bayar" id="bayar" readonly>
                           </td>
                         </tr>
                         <tr >
-                          <td><label>Jumlah</label></td>
+                          <td><label>Jumlah Barang Masuk</label></td>
                           <td style="padding-left: 20px;">
-                            <input type="text" class="form-control my-2" placeholder="Jumlah" name="jml" id="jml">
-                          </td>
-                          <td><label class="mx-2">Satuan</label></td>
-                          <td class="form-inline" style="padding-left: 10px;">
-                            <input type="text" class="form-control" placeholder="Satuan" name="satuan" id="satuan">
+                            <input type="text" class="form-control my-2" placeholder="Jumlah Barang Masuk" name="brgMasuk" id="brgMasuk">
                           </td>
                         </tr>
-                        <tr >
-                          <td><label>Harga Beli</label></td>
+                        <tr>
+                          <td><label>Total Harga</label></td>
                           <td style="padding-left: 20px;">
-                          <input type="text" class="form-control" name="harga_beli" id="beli" placeholder="Harga Beli">
-                          </td>
-                          <td><label class="mx-2">Harga Jual</label></td>
-                          <td style="padding-left: 10px;">
-                          <input type="text" class="form-control" name="harga_jual" id="jual" placeholder="Harga Jual">
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Jenis Barang</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                            <select name="jenis" id="inputJenis" class="form-select my-2" style="width:50%;">
-                              <option selected>Pilih Jenis Barang...</option>
-                              <option value="Elektronik">Elektronik</option>
-                              <option value="Tableware">Tableware</option>
-                              <option value="Perlengkapan Dapur">Perlengkapan Dapur</option>
-                              <option value="Pot Bunga">Pot Bunga</option>
-                              <option value="Furnitur">Furnitur</option>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Rak Simpan</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                            <select id="inputRak" name="rak" class="form-select my-2" style="width:30%;">
-                              <option selected>Pilih Rak...</option>
-                              <?php foreach($rak as $rak) { ?>
-                              <option value="<?php echo $rak->kode_rak ?>"><?php echo $rak->nama_rak ?></option>
-                              <?php } ?>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Foto Barang</label></td>
-                          <td colspan="3" style="padding-left: 20px;">
-                          <input type="file" class="form-control my-2" placeholder="Foto Barang" name="ftbrg" id="ftbrg">
+                          <input type="text" class="form-control my-2" placeholder="Total Harga" name="total" id="total" readonly>
                           </td>
                         </tr>
                       </table>
@@ -113,34 +81,60 @@
           </div>
         </div>
       </div>
-<script>
-var harga_beli = document.getElementById('beli');
-var harga_jual = document.getElementById('jual');
-harga_beli.addEventListener('keyup', function(e)
-{
-    harga_beli.value = formatRupiah(this.value, 'Rp. ');
-});
-harga_jual.addEventListener('keyup', function(e)
-{
-    harga_jual.value = formatRupiah(this.value, 'Rp. ');
-});
-function formatRupiah(angka, prefix)
-{
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split    = number_string.split(','),
-        sisa     = split[0].length % 3,
-        rupiah     = split[0].substr(0, sisa),
-        ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
-        
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-    
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-}
-</script>
-
   </main>
+
+   
+<script type="text/javascript">
+  
+  $('#nmbrg').change(function(){
+    var id = $(this).val();
+    var url = '{{ route("getDetails", ":nmbrg") }}';
+    url = url.replace(':nmbrg', id);
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        data: {
+                _token: '{!! csrf_token() !!}',
+              },
+        success: function(response){
+            if(response != null){
+                $('#kodebrg').val(response.kode_barang);
+                $('#suplier').val(response.nama_suplier);
+                $('#jml').val(response.jml_brg);
+                if(response.keterangan != null){
+                  $('#bayar').val(response.pembayaran + " " + response.keterangan);
+                }else{
+                  $('#bayar').val(response.pembayaran);
+                }
+                $("#brgMasuk").first().focus();
+                $('#total').val('');
+                $('#brgMasuk').val('');
+            }
+        }
+      });
+  });
+  
+  $('#brgMasuk').change(function(){
+    var nama = $('#nmbrg').val();
+    var url = '{{ route("getDetails", ":nmbrg") }}';
+    url = url.replace(':nmbrg', nama);
+    
+    var id = $(this).val();
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        data: {
+                _token: '{!! csrf_token() !!}',
+              },
+        success: function(response){
+            if(response != null){
+                $('#total').val('Rp. ' + Intl.NumberFormat('en-DE').format(response.harga_beli * id));
+            }
+        }
+      });
+  });
+</script>
   @endsection

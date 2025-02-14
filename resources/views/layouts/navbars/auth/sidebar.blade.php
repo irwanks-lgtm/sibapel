@@ -28,7 +28,7 @@
     </a>
   </div>
   <hr class="horizontal m-auto" style="height:6px;border-width:0;color:white;background-color:white;">
-  <div class="collapse navbar-collapse  w-auto mt-2" id="sidenav-collapse-main">
+  <div class="collapse navbar-collapse  w-auto mt-2 mb-4" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
@@ -38,6 +38,44 @@
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('dashboard') ? 'text-dark' : 'text-white') }}">Dashboard</span>
         </a>
       </li>
+      <li class="nav-item mt-2">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Manajemen Data</h6>
+      </li>
+      <?php if(Str::contains(Session::get('idUser'), 'ADM')){ ?>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('data-pengguna') ? 'active' : '') }}" href="{{ url('data-pengguna') }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i style="font-size: 1rem;" class="fas fa-people-group ps-2 pe-2 {{ (Request::is('data-pengguna') ? 'text-white' : 'text-dark') }} "></i>
+            </div>
+            <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-pengguna') ? 'text-dark' : 'text-white') }}">Data Pengguna</span>
+        </a>
+      </li>
+      <?php } ?>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('data-suplier') ? 'active' : '') }}" href="{{ url('data-suplier') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-users-gear" style=" font-size: 1rem;{{ (Request::is('data-suplier') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-suplier') ? 'text-dark' : 'text-white') }}">Data Suplier</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('data-gudang') ? 'active' : '') }}" href="{{ url('data-gudang') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-warehouse" style="font-size: 1rem; {{ (Request::is('data-gudang') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-gudang') ? 'text-dark' : 'text-white') }}">Data Gudang</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('data-barang') ? 'active' : '') }}" href="{{ url('data-barang') }}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-boxes-stacked" style="font-size: 1rem; {{ (Request::is('data-barang') ? 'color:white;' : 'color:black;') }}"></i>
+          </div>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-barang') ? 'text-dark' : 'text-white') }}">Data Barang</span>
+        </a>
+      </li>
+      <?php if(Str::contains(Session::get('idUser'), 'ADM')){ ?>
       <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Manajemen Barang</h6>
       </li>
@@ -66,32 +104,6 @@
         </a>
       </li>
       <li class="nav-item mt-2">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Manajemen Data</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (Request::is('data-pengguna') ? 'active' : '') }}" href="{{ url('data-pengguna') }}">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i style="font-size: 1rem;" class="fas fa-people-group ps-2 pe-2 {{ (Request::is('data-pengguna') ? 'text-white' : 'text-dark') }} "></i>
-            </div>
-            <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-pengguna') ? 'text-dark' : 'text-white') }}">Data Pengguna</span>
-        </a>
-      <li class="nav-item">
-        <a class="nav-link {{ (Request::is('data-suplier') ? 'active' : '') }}" href="{{ url('data-suplier') }}">
-          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-users-gear" style=" font-size: 1rem;{{ (Request::is('data-suplier') ? 'color:white;' : 'color:black;') }}"></i>
-          </div>
-          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-suplier') ? 'text-dark' : 'text-white') }}">Data Suplier</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (Request::is('data-barang') ? 'active' : '') }}" href="{{ url('data-barang') }}">
-          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-boxes-stacked" style="font-size: 1rem; {{ (Request::is('data-barang') ? 'color:white;' : 'color:black;') }}"></i>
-          </div>
-          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-barang') ? 'text-dark' : 'text-white') }}">Data Barang</span>
-        </a>
-      </li>
-      <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Penjualan</h6>
       </li>
       <li class="nav-item">
@@ -106,21 +118,22 @@
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Laporan</h6>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('pos') ? 'active' : '') }}" href="{{ url('pos') }}">
+        <a class="nav-link {{ (Request::is('laporan-penjualan') ? 'active' : '') }}" href="{{ url('laporan-penjualan') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-money-bill-wave" style="font-size: 1rem; {{ (Request::is('pos') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-money-bill-wave" style="font-size: 1rem; {{ (Request::is('laporan-penjualan') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
-          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('pos') ? 'text-dark' : 'text-white') }}">Laporan Penjualan</span>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('laporan-penjualan') ? 'text-dark' : 'text-white') }}">Laporan Penjualan</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('pos') ? 'active' : '') }}" href="{{ url('pos') }}">
+        <a class="nav-link {{ (Request::is('laporan-transaksi') ? 'active' : '') }}" href="{{ url('laporan-transaksi') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-check-to-slot" style="font-size: 1rem; {{ (Request::is('pos') ? 'color:white;' : 'color:black;') }}"></i>
+          <i class="fa-solid fa-check-to-slot" style="font-size: 1rem; {{ (Request::is('laporan-transaksi') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
-          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('pos') ? 'text-dark' : 'text-white') }}">Laporan Transaksi</span>
+          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('laporan-transaksi') ? 'text-dark' : 'text-white') }}">Laporan Transaksi</span>
         </a>
       </li>
+      <?php } ?>
     </ul>
   </div>
 </aside>

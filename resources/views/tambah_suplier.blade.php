@@ -20,7 +20,7 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-                  <form method="POST" action="{{ url('/tambahsuplier')}}">    
+                  <form method="POST" action="{{ url('/tambahsuplier')}}" autocomplete="off">    
                   @csrf              
                     <div class="mb-2">
                       <table>
@@ -45,7 +45,7 @@
                         <tr >
                           <td><label>No. HP</label></td>
                           <td style="padding-left: 20px;">
-                            <input type="text" class="form-control my-2" placeholder="No. HP" name="telp">
+                            <input type="text" class="form-control my-2" placeholder="No. HP" name="nohp">
                           </td>
                         </tr>
                         <tr>

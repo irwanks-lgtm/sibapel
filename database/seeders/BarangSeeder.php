@@ -13,7 +13,6 @@ class BarangSeeder extends Seeder
      */
     public function run(): void
     {
-        $date = date_create('2000-01-01');
         DB::table('barang')->insert([
             'kode_barang' => 'BM8023',
             'id_suplier' => 'MSP202401',
@@ -25,9 +24,8 @@ class BarangSeeder extends Seeder
             'harga_jual' => '1300000',
             'jenis_barang' => 'elektronik',
             'kode_rak' => 'RTK01',
-            'tgl_masuk' => date_format($date, 'Y-m-d'),
-            'qty_min' => 5,
-            'foto' => 'mesincuci.jpg'
+            'tgl_masuk' => now(),
+            'qty_min' => 5
         ]);
 
         DB::table('barang')->insert([
@@ -41,9 +39,8 @@ class BarangSeeder extends Seeder
             'harga_jual' => '120000',
             'jenis_barang' => 'elektronik',
             'kode_rak' => 'RTK01',
-            'tgl_masuk' => date_format($date, 'Y-m-d'),
-            'qty_min' => 5,
-            'foto' => 'ricecooker.jpg'
+            'tgl_masuk' => now(),
+            'qty_min' => 5
         ]);
     }
 }

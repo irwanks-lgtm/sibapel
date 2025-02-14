@@ -12,17 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->string('kode_transaksi', length: 30);
+            $table->char('kode_transaksi', length: 30);
             $table->primary('kode_transaksi');
             $table->string('kode_barang', length: 25);
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
             $table->string('id_pengguna', length: 50);
-            $table->foreign('id_pengguna')->references('id')->on('user');
+            $table->foreign('id_pengguna')->references('id_pengguna')->on('user');
             $table->string('jenis_transaksi', length: 30);
-            $table->string('qty', length: 10);
+            $table->string('jml', length: 10);
             $table->string('harga', length: 20);
-            $table->date('tgl_transaksi');
-            $table->string('keterangan', length: 80);
+            $table->dateTime('tgl_transaksi');
+            $table->string('keterangan', length: 80)->nullable();
+            $table->timestamps();
 
         });
     }

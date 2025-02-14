@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gudang', function (Blueprint $table) {
-            $table->string('kode_gudang', length: 15)->unique();
+            $table->char('kode_gudang', length: 15)->unique();
             $table->primary('kode_gudang');
             $table->string('nama_gudang', length: 20);
+            $table->timestamps();
         });
     }
 

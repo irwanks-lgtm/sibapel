@@ -14,44 +14,43 @@
                   <div>
                       <h5 class="mb-0">Tabel Barang Keluar</h5>
                   </div>
-                  <a href="tambah-barang-keluar" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Data</a>
+                  <?php if(Str::contains(Session::get('idUser'), 'ADM')){ ?>
+                    <a href="retur-barang" class="btn bg-gradient-dark btn-sm mb-0" type="button">Retur Barang</a>
+                  <?php } ?>
               </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Transaksi</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Barang</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Satuan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tanggal</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Transaksi</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis transaksi</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
                   </thead>
+                  <?php foreach ($trx as $tx) {?>
                   <tbody class="text-center">
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">RT0011803</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->kode_transaksi ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">MSP0012485</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->nama_barang ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Elektronik</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->jml ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Irwan Kurniadi</p>
+                        <p class="text-xs font-weight-bold mb-0">@currency($tx->harga)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">PROSES</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->tgl_transaksi), "j M Y") ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Irwan Kurniadi</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">RETUR</p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->jenis_transaksi ?></p>
                       </td>
                       <td class="align-middle">
                         <a href="#" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
@@ -65,6 +64,7 @@
                         </a>
                       </td>
                   </tbody>
+                  <?php } ?>
                 </table>
               </div>
             </div>

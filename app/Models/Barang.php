@@ -10,6 +10,7 @@ class Barang extends Model
     use HasFactory;
 
     protected $table = 'barang';
+    protected $primarykey = 'kode_barang';
     protected $fillable = [
         'kode_barang',
         'id_suplier',
@@ -25,4 +26,9 @@ class Barang extends Model
         'qty_min',
         'foto'
     ];
+
+    public function dataBarang(){
+        Barang::leftJoin('suplier', 'barang.id_suplier', '=', 'suplier.id_suplier')
+            ->select('barang.*', 'suplier.nama_suplier')->get();
+    }
 }

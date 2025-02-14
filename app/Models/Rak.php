@@ -10,6 +10,7 @@ class Rak extends Model
     use HasFactory;
 
     protected $table = 'rak';
+    protected $primarykey = 'kode_rak';
     protected $fillable = [
         'kode_rak',
         'kode_gudang',

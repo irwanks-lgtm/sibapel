@@ -27,25 +27,25 @@
                         <?php foreach($suplier as $sup) {?>
                         <tr>
                           <td><label>ID Suplier</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="ID Suplier" name="idsup" value="<?php echo $sup->id_suplier ?>" readonly>
                           </td>
                         </tr>
                         <tr>
                           <td><label>Nama Suplier</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Nama Suplier" name="namasup" value="<?php echo $sup->nama_suplier ?>">
                           </td>
                         </tr>
                         <tr>
                           <td><label>Alamat</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Alamat Suplier" name="alamat" value="<?php echo $sup->alamat ?>">
                           </td>
                         </tr>
                         <tr >
                           <td><label>No. HP</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                             <input type="text" class="form-control my-2" placeholder="No. HP" name="nohp" value="<?php echo $sup->no_hp ?>">
                           </td>
                         </tr>
@@ -61,7 +61,7 @@
                         </tr>
                         <tr >
                           <td><label>Keterangan</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" name="keterangan" id="keterangan" placeholder="Keterangan" value="<?php echo $sup->keterangan ?>">
                           </td>
                         </tr>

@@ -11,18 +11,31 @@ class SuplierController extends Controller
         $suplier = Suplier::orderBy('created_at', 'ASC')->get();
         return view('data_suplier', ['suplier' => $suplier]);
     }
-    
+
     public function tambah(Request $req){
-        Suplier::insert([
-            'id_suplier' => $req->idsup,
-            'nama_suplier' => $req->namasup,
-            'alamat' => $req->alamat,
-            'no_hp' => $req->nohp,
-            'pembayaran' => $req->pembayaran,
-            'keterangan' => $req->keterangan,
-            'created_at' => now()
-        ]);
-        return redirect('data-suplier');
+        try{
+            $validatedData = $req->validate([
+                'idsup' => "required|max:100",
+                'namasup' => "required|max:100",
+                'alamat' => "required|max:50",
+                'nohp' => "required|numeric",
+                'pembayaran' => "required"
+            ]);
+
+            Suplier::insert([
+                'id_suplier' => $req->idsup,
+                'nama_suplier' => $req->namasup,
+                'alamat' => $req->alamat,
+                'no_hp' => $req->nohp,
+                'pembayaran' => $req->pembayaran,
+                'keterangan' => $req->keterangan,
+                'created_at' => now()
+            ]);
+            return redirect('data-suplier');
+        }catch(ValidationException $excep){
+            return back();
+        }
+
     }
 
     public function indexEdit($id){
@@ -30,7 +43,7 @@ class SuplierController extends Controller
         return view('edit/edit_suplier', ['suplier' => $suplier]);
     }
 
-    public function edit(Request $req){
+    public function editSuplier(Request $req){
         Suplier::where('id_suplier', $req->idsup)->update([
             'nama_suplier' => $req->namasup,
             'alamat' => $req->alamat,

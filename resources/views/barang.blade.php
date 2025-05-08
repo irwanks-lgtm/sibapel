@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
- 
+
 	<div class="table-responsive px-2">
 		<center>
 			<h4>Export Laporan Transaksi Barang Masuk</h4>
@@ -19,9 +19,9 @@
 			<a href="{{ url()->previous() }}" class="btn bg-warning my-3 " type="button">Kembali</a>
 			</td>
 		</table>
-		
-        
-		
+
+
+
 		<table class='table table-responsive table-sm table-bordered' style="padding-left:5%">
 			<thead>
 				<tr>
@@ -52,13 +52,13 @@
 					<td>@currency($b->harga_jual)</td>
 					<td>{{$b->jenis_barang}}</td>
 					<td>{{$b->kode_rak}}</td>
-					<td>{{$b->qty_min}}</td>
+					<td>{{$b->jml_min}}</td>
 					<td>{{$b->tgl_masuk}}</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
 	</div>
- 
+
 </body>
 </html>

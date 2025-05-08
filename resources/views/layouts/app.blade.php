@@ -22,7 +22,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/Logo-MS.png">
   <title>
-    SISTEM INVENTORY BARANG PECAH BELAH MOROSENENG
+    SISTEM PENGELOLAAN BARANG PECAH BELAH 
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -44,6 +44,13 @@
   left: 40%;
   text-align: center;
 }
+  #failedMessage {
+  position: absolute;
+  top: 5%;
+  width: 20%;
+  left: 40%;
+  text-align: center;
+}
 
 </style>
 <body class="g-sidenav-show  bg-gray-100 ">
@@ -58,6 +65,11 @@
   <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 3000); </script>
       <div id="successMessage" class="bg-success rounded py-1 px-3">
         <p class="m-4">{{ session('success')}}</p>
+      </div>
+  @elseif(session()->has('failed'))
+  <script type="text/javascript">window.setTimeout("document.getElementById('failedMessage').style.display='none';", 3000); </script>
+      <div id="failedMessage" class="bg-warning rounded py-1 px-3">
+        <p class="m-4">{{ session('failed')}}</p>
       </div>
   @endif
     <!--   Core JS Files   -->

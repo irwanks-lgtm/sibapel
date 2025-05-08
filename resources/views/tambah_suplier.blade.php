@@ -20,47 +20,62 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-                  <form method="POST" action="{{ url('/tambahsuplier')}}" autocomplete="off">    
-                  @csrf              
+                  <form method="POST" action="{{ url('/tambahsuplier')}}" autocomplete="off">
+                  @csrf
                     <div class="mb-2">
                       <table>
                         <tr>
                           <td><label>ID Suplier</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="ID Suplier" name="idsup">
+                          @error('idsup')
+                            <div class="text-xs text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Nama Suplier</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Nama Suplier" name="namasup">
+                          @error('namasup')
+                            <div class="text-xs text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Alamat</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Alamat Suplier" name="alamat">
+                          @error('alamat')
+                            <div class="text-xs text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>No. HP</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                             <input type="text" class="form-control my-2" placeholder="No. HP" name="nohp">
+                            @error('nohp')
+                            <div class="text-xs text-danger">{{$message}}</div>
+                            @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Pembayaran</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                            <select name="pembayaran" class="form-select my-2" style="width:250px">
+                            <select name="pembayaran" id="pembayaran" class="form-select my-2" style="width:250px">
                               <option selected>Pilih Jenis Pembayaran...</option>
                               <option value="Transfer">Transfer</option>
                               <option value="Tunai">Tunai</option>
                             </select>
+                            @error('pembayaran')
+                            <div class="text-xs text-danger">{{$message}}</div>
+                            @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>Keterangan</label></td>
-                          <td style="padding-left: 20px;">
+                          <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" name="keterangan" id="keterangan" placeholder="Keterangan">
                           </td>
                         </tr>
@@ -74,4 +89,17 @@
         </div>
       </div>
   </main>
+  <script>
+    $('#pembayaran').change(function(){
+    var pembayaran = $(this).val();
+    if(pembayaran=='Transfer'){
+        $('#keterangan').prop('readonly', false);
+        $('#keterangan').prop('required', true);
+        $('#keterangan').focus();
+    }else{
+        $('#keterangan').prop('readonly', true);
+        $('#keterangan').prop('required', false);
+    }
+  });
+</script>
   @endsection

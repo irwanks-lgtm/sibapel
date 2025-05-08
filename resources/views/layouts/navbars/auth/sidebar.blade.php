@@ -24,7 +24,7 @@
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
         <img src="../assets/img/Logo-MS.png" class="navbar-brand-img h-100" alt="Logo Moro Seneng">
-        <span class="ms-2 fs-5 font-weight-bold text-white">MORO SENENG</span>
+        <span class="ms-2 fs-2 font-weight-bold text-white">SIBAPEL</span>
     </a>
   </div>
   <hr class="horizontal m-auto" style="height:6px;border-width:0;color:white;background-color:white;">
@@ -57,14 +57,6 @@
           <i class="fa-solid fa-users-gear" style=" font-size: 1rem;{{ (Request::is('data-suplier') ? 'color:white;' : 'color:black;') }}"></i>
           </div>
           <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-suplier') ? 'text-dark' : 'text-white') }}">Data Suplier</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (Request::is('data-gudang') ? 'active' : '') }}" href="{{ url('data-gudang') }}">
-          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-warehouse" style="font-size: 1rem; {{ (Request::is('data-gudang') ? 'color:white;' : 'color:black;') }}"></i>
-          </div>
-          <span class="nav-link-text font-weight-bold ms-1 {{ (Request::is('data-gudang') ? 'text-dark' : 'text-white') }}">Data Gudang</span>
         </a>
       </li>
       <li class="nav-item">

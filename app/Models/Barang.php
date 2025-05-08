@@ -24,7 +24,7 @@ class Barang extends Model
         'kode_rak',
         'tgl_masuk',
         'qty_min',
-        'foto'
+        'waktu_tg'
     ];
 
     public function dataBarang(){

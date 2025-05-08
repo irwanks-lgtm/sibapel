@@ -21,47 +21,68 @@
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
                   <form method="POST" action="{{ url('/simpan-pengguna')}}" autocomplete="off">    
-                  @csrf              
+                  @csrf            
                     <div class="mb-2">
                       <table>
                         <tr>
                           <td><label>E-Mail</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                          <input type="email" class="form-control my-2" placeholder="E-Mail" name="email">
+                          <input type="email" class="form-control my-2" placeholder="E-Mail" name="email" value="{{old('email')}}">
+                          @error('email')
+                            <div class="text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Nama </label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Nama Pengguna" name="nama">
+                          <input type="text" class="form-control my-2" placeholder="Nama Pengguna" name="nama" value="{{old('nama')}}">
+                          @error('nama')
+                            <div class="text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Password </label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                          <input type="password" class="form-control my-2" placeholder="Password" name="password">
+                          <input type="password" class="form-control my-2 @error('password') is-invalid @enderror" placeholder="Password" name="password">
+                          @error('password')
+                            <div class="text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Alamat</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Alamat" name="alamat">
+                          <input type="text" class="form-control my-2" placeholder="Alamat" name="alamat" value="{{old('alamat')}}">
+                          @error('alamat')
+                            <div class="text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>Tempat Lahir</label></td>
                           <td style="padding-left: 20px;">
-                            <input type="text" class="form-control my-2" placeholder="Tempat Lahir" name="tmpt">
+                            <input type="text" class="form-control my-2" placeholder="Tempat Lahir" name="tmpt" value="{{old('tmpt')}}">
+                            @error('tmpt')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
                           </td>
                           <td style="padding-left:20px;"><label>Tgl Lahir</label></td>
                           <td style="padding-left: 20px;">
-                            <input type="date" class="form-control my-2" name="tgl_lhr">
+                            <input type="date" class="form-control my-2" name="tgl_lhr" value="{{old('tgl_lhr')}}">
+                            @error('tgl_lhr')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>No. HP</label></td>
                           <td style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" name="nohp" id="nohp" placeholder="Nomor Handphone">
+                          <input type="text" class="form-control my-2" name="nohp" id="nohp" placeholder="Nomor Handphone" value="{{old('nohp')}}">
+                          @error('nohp')
+                            <div class="text-danger">{{$message}}</div>
+                          @enderror
                           </td>
                         </tr>
                         <tr>

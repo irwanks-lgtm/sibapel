@@ -5,6 +5,8 @@ namespace App\Exports;
 use App\Models\Barang;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -12,14 +14,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithMappedCells;
 
 
-class BarangExport implements FromCollection, WithStyles, WithMapping, WithColumnFormatting, WithHeadings, ShouldAutoSize
+class BarangExport implements FromCollection, WithStyles, WithMapping, WithColumnFormatting, WithHeadings, ShouldAutoSize, WithCustomStartCell, WithMappedCells
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-   
+
     public function collection()
     {
         return Barang::leftJoin('suplier', 'barang.id_suplier', '=', 'suplier.id_suplier')
@@ -28,13 +31,12 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle(1)->getFont()->setBold(true);
+        $sheet->getStyle(5)->getFont()->setBold(true);
     }
-    
+
     public function columnFormats(): array
     {
         return [
-            'C' => NumberFormat::FORMAT_NUMBER,
             'G' => 'Rp #,##0_-',
             'H' => 'Rp #,##0_-',
             'L' => NumberFormat::FORMAT_DATE_DATETIME,
@@ -43,7 +45,7 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
 
     public function map($dataBarang): array
     {
-        
+
         return [
             $dataBarang->kode_barang,
             $dataBarang->id_suplier . ' - ' . $dataBarang->nama_suplier,
@@ -55,10 +57,15 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
             $dataBarang->harga_jual,
             $dataBarang->jenis_barang,
             $dataBarang->kode_rak,
-            $dataBarang->qty_min,
+            $dataBarang->jml_min,
             Date::dateTimeToExcel(date_create($dataBarang->tgl_masuk))
-            
+
         ];
+    }
+
+    public function startCell(): string
+    {
+        return 'A5';
     }
 
     public function headings(): array

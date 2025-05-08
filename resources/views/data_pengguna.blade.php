@@ -64,7 +64,7 @@
                                         <p class="text-xs font-weight-bold mb-0"><?php echo Str::title($u->role) ?></p>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold"><?php echo date_format(date_create($u->tgl_masuk), 'j M Y') ?></span>
+                                        <span class="text-secondary text-xs font-weight-bold"><?php echo date_format(date_create($u->created_at), 'j M Y') ?></span>
                                     </td>
                                     <td class="text-center">
                                         <a href="edit-pengguna/{{$u->id_pengguna}}" class="mx-2" data-bs-toggle="tooltip" data-bs-original-title="Edit">

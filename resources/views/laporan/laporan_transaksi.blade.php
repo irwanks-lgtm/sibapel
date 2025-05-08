@@ -54,6 +54,15 @@
                 processing: true,
                 serverSide: true,
                 order: [[5, 'asc']],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian-Alternative.json',
+                    "paginate": {
+                                    "first": "«",
+                                    "last": "»",
+                                    "next": "›",
+                                    "previous": "‹"
+                                },
+                },
                 ajax: {
                   url: '{{ route("laporan.transaksi") }}',
 

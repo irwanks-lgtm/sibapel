@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
-use App\Models\Suplier;
 use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -13,7 +12,6 @@ use App\Exports\TransaksiExport;
 use App\Exports\TransaksiMasukExport;
 use App\Exports\PenjualanExport;
 use Maatwebsite\Excel\Facades\Excel;
-
 use DataTables;
 
 

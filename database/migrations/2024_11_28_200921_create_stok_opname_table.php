@@ -12,17 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stok_opname', function (Blueprint $table) {
-            $table->char('kode_stok', length: 15)->unique();
-            $table->primary('kode_stok');
-            $table->string('id_pengguna', length: 50);
+            $table->increments('id_stok');
+            $table->char('kode_stok', length: 15)->index();
+            $table->string('kode_barang', length: 15);
+            $table->foreign('kode_barang')->references('kode_barang')->on('barang');
+            $table->integer('jml_sistem');
+            $table->integer('jml_aktual');
+            $table->integer('selisih');
+            $table->dateTime('waktu_stok');
+            $table->string('kode_rak', length: 5);
+            $table->string('status', length: 8);
+            $table->string('id_pengguna', length: 15);
             $table->foreign('id_pengguna')->references('id_pengguna')->on('user');
-            $table->string('kode_rak', length: 15);
-            $table->foreign('kode_rak')->references('kode_rak')->on('rak');
-            $table->dateTime('tgl_stok');
-            $table->string('status', length: 20);
             $table->timestamps();
         });
-        
+
     }
 
     /**

@@ -115,6 +115,12 @@
           <?php } ?>
           </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card z-index-2">
+        <div class="card-header pb-0">
           <h6 class="ms-2 mt-4 mb-0"> Barang Terjual </h6>
           <p class="text-sm ms-2">List barang paling laku </p>
           <div class="container border-radius-lg">
@@ -134,35 +140,8 @@
           <?php } ?>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="card z-index-2">
-        <div class="card-header pb-0">
-          <h6>Barang Terjual Terakhir</h6>
-          <p class="text-sm ms-2">List barang terrjual terakhir </p>
-          <div class="card-body border-radius-lg">
-            <?php if($lastsale->isEmpty()) { echo "<div class=\"text-center\">Belum Ada Barang Terjual</div>";} else{?>
-            <table class="table table-stripped">
-            <?php $i=1; foreach($lastsale as $ls) { ?>
-              <tr>
-                <td>
-                  {{$i.".". " " .$ls->nama_barang}}
-                </td>
-                <td>
-                  {{$ls->jml}}
-                </td>
-                <td>
-                  @currency($ls->harga)
-                </td>
-              </tr>
-            <?php $i++; } ?>
-            </table>
-            <?php } ?>
-          </div>
-        </div>
         <div class="card-body p-1">
-          
+
         </div>
       </div>
     </div>

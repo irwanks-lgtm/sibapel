@@ -22,14 +22,14 @@ class TransaksiExport implements FromCollection, WithStyles, WithMapping, WithCo
     public function collection()
     {
         return Transaksi::leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
-        ->select('transaksi.*', 'barang.nama_barang')->orderBy('tgl_transaksi', 'asc')->get();
+        ->select('transaksi.*', 'barang.nama_barang')->orderBy('created_at', 'asc')->get();
     }
 
     public function styles(Worksheet $sheet)
     {
         $sheet->getStyle(1)->getFont()->setBold(true);
     }
-    
+
     public function columnFormats(): array
     {
         return [
@@ -40,17 +40,17 @@ class TransaksiExport implements FromCollection, WithStyles, WithMapping, WithCo
 
     public function map($dataTrx): array
     {
-        
+
         return [
             $dataTrx->kode_transaksi,
             $dataTrx->kode_barang,
             $dataTrx->nama_barang,
-            $dataTrx->qty,
-            $dataTrx->harga,
+            $dataTrx->jml,
+            (int)$dataTrx->harga,
             $dataTrx->jenis_transaksi,
-            Date::dateTimeToExcel(date_create($dataTrx->tgl_transaksi)),
+            Date::dateTimeToExcel(date_create($dataTrx->created_at)),
             $dataTrx->keterangan,
-            
+
         ];
     }
 

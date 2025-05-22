@@ -40,31 +40,31 @@
                     </tr>
                   </thead>
                   <?php foreach($barang as $brg) { ?>
-                    <tbody class="text-center">
+                    <tbody>
                     <tr>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->kode_barang; ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php echo $brg->kode_barang; ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?php if(strlen($brg->nama_barang)>15){echo substr($brg->nama_barang, 0, 15)."...";} ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 <?php if($brg->jml_brg<=$brg->jml_min){ echo 'text-danger'; } ?>"><?php echo $brg->jml_brg; ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0 <?php if($brg->jml_brg<=$brg->jml_min){ echo 'text-danger'; } ?>"><?php echo $brg->jml_brg; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->satuan; ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php echo $brg->satuan; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">@currency($brg->harga_beli)</p>
+                        <p class="text-center text-xs font-weight-bold mb-0">@currency($brg->harga_beli)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">@currency($brg->harga_jual)</p>
+                        <p class="text-center text-xs font-weight-bold mb-0">@currency($brg->harga_jual)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $brg->jml_min; ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php echo $brg->jml_min; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php $date = date_create($brg->created_at); echo DATE_FORMAT($date, "d M Y"); ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php $date = date_create($brg->created_at); echo DATE_FORMAT($date, "d M Y"); ?></p>
                       </td>
                       <td class="align-middle">
                         <a href="detail-barang/{{$brg->kode_barang}}" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">

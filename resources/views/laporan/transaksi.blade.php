@@ -22,7 +22,7 @@
 					<th>Nama Barang</th>
 					<th>Jumlah</th>
 					<th>Harga</th>
-					<th>Jenis Transaksi</th>
+					<th style="width:140px">Jenis Transaksi</th>
 					<th>Tgl Transaksi</th>
 					<th>Keterangan</th>
 				</tr>
@@ -36,7 +36,7 @@
 					<td>{{$tx->jml}}</td>
 					<td>@currency($tx->harga)</td>
 					<td>{{$tx->jenis_transaksi}}</td>
-					<td>{{$tx->created_at}}</td>
+					<td>{{date_format(date_create($tx->created_at), 'd-m-Y H:i:s')}}</td>
 					<td>{{$tx->keterangan}}</td>
 				</tr>
 				@endforeach

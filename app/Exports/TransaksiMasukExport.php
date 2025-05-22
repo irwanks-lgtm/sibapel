@@ -46,7 +46,7 @@ class TransaksiMasukExport implements FromCollection, WithStyles, WithMapping, W
             $dataMasuk->kode_transaksi,
             $dataMasuk->kode_barang,
             $dataMasuk->nama_barang,
-            $dataMasuk->qty,
+            $dataMasuk->jml,
             $dataMasuk->harga,
             Date::dateTimeToExcel(date_create($dataMasuk->tgl_transaksi))
             

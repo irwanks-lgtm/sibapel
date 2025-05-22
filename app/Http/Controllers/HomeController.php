@@ -22,11 +22,9 @@ class HomeController extends Controller
         $bulan = Carbon::now()->format('m');
         $totalsale = Transaksi::where('jenis_transaksi', 'POS')->whereMonth('created_at', $bulan)->sum('harga');
         $hotsale = Barang::leftJoin('transaksi', 'barang.kode_barang', '=', 'transaksi.kode_barang')
-        ->select('barang.nama_barang', DB::raw('sum(transaksi.jml) as jual'))->where('jenis_transaksi', 'POS')->groupBy('barang.kode_barang')->orderBy('jual', 'DESC')->whereMonth('transaksi.created_at', $bulan)->take(5)->get();
-        $stokbrg = Barang::whereColumn('jml_brg', '<=','jml_min')->get();
-        $lastsale = Barang::leftJoin('transaksi', 'barang.kode_barang', '=', 'transaksi.kode_barang')
-        ->select('barang.nama_barang', 'transaksi.jml' , 'transaksi.harga')->where('jenis_transaksi', 'POS')->orderBy('transaksi.created_at', 'DESC')->whereMonth('transaksi.created_at', $bulan)->take(10)->get();
-        return view('dashboard', ['jmlBrg' => $jmlBrg, 'jmlUser' => $jmlUser, 'jmlSup' => $jmlSup, 'total' => $totalsale, 'hotsale' => $hotsale, 'stokbrg' => $stokbrg , 'lastsale' => $lastsale]);
+        ->select('barang.nama_barang', DB::raw('sum(transaksi.jml) as jual'))->where('jenis_transaksi', 'POS')->groupBy('barang.kode_barang')->orderBy('jual', 'DESC')->whereMonth('transaksi.created_at', $bulan)->take(10)->get();
+        $stokbrg = Barang::whereColumn('jml_brg', '<=','jml_min')->take(10)->get();
+        return view('dashboard', ['jmlBrg' => $jmlBrg, 'jmlUser' => $jmlUser, 'jmlSup' => $jmlSup, 'total' => $totalsale, 'hotsale' => $hotsale, 'stokbrg' => $stokbrg ]);
 
     }
 }

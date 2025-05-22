@@ -37,23 +37,23 @@
                     </tr>
                   </thead>
                   <?php foreach ($trx as $tx) {?>
-                  <tbody class="text-center">
+                  <tbody>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->kode_transaksi ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php echo $tx->kode_transaksi ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?php echo $tx->nama_barang ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->jml ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php echo $tx->jml ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">@currency($tx->harga)</p>
+                        <p class="text-center text-xs font-weight-bold mb-0">@currency($tx->harga)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->created_at), "j M Y") ?></p>
+                        <p class="text-center text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->created_at), "j M Y") ?></p>
                       </td>
-                      <td class="align-middle">
+                      <td class="text-center align-middle">
                         <a href="detail-barang-masuk/{{$tx->kode_transaksi}}" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
                           <i class="fa-solid fa-magnifying-glass"></i>
                         </a>

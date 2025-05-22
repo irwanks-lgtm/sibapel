@@ -17,6 +17,7 @@
 		<table class='table table-bordered'>
 			<thead>
 				<tr>
+					<th>Kode Transaksi</th>
 					<th>Kode Barang</th>
 					<th>Nama Barang</th>
 					<th>Jumlah</th>
@@ -28,6 +29,7 @@
 			<tbody>
 				@foreach($data as $dt)
 				<tr>
+					<td>{{$dt->kode_transaksi}}</td>
 					<td>{{$dt->kode_barang}}</td>
 					<td>{{$dt->nama_barang}}</td>
 					<td>{{$dt->total_brg}}</td>

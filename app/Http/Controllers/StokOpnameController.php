@@ -40,6 +40,10 @@ class StokOpnameController extends Controller
                                     'status' => 'SELESAI',
                                     'updated_at' => now()
                                 ]);
+            $updateBarang = Barang::where('kode_barang', $req->$kb)->update([
+                'jml_brg' => $req->$kb['aktual'],
+                'updated_at' => now()
+            ]);
         }
         return redirect('stok-opname')->with(['success'=>'Data Opname Berhasil Di Simpan']);
     }

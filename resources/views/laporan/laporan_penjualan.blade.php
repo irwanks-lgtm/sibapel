@@ -93,8 +93,9 @@
                 ],
                 columnDefs: [
                     { width: '70px', targets: [ 2, 3 ] },
-                    { width: '130px', targets: [ 0 ] },
-                    { className: 'dt-center', targets: '_all' }
+                    { width: '40', targets: [ 1 ] },
+                    { width: '120px', targets: [ 0 ] },
+                    { className: 'dt-center', targets: [ 1, 2, 4, 5 ] },
                 ],
             });
         });

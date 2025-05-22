@@ -24,8 +24,8 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
         return Transaksi::where('transaksi.jenis_transaksi', 'POS')
         ->leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
         ->groupBy('transaksi.kode_barang')
-        ->selectRaw('transaksi.*, barang.nama_barang, barang.satuan, sum(transaksi.qty) as total_brg, sum(transaksi.harga) as total_harga')
-        ->orderBy('tgl_transaksi', 'asc')->get();
+        ->selectRaw('transaksi.*, barang.nama_barang, barang.satuan, sum(transaksi.jml) as total_brg, sum(transaksi.harga) as total_harga')
+        ->orderBy('created_at', 'asc')->get();
     }
 
     public function styles(Worksheet $sheet)
@@ -36,8 +36,8 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
     public function columnFormats(): array
     {
         return [
-            'E' => 'Rp #,##0_-',
-            'F' => NumberFormat::FORMAT_DATE_DATETIME,
+            'F' => 'Rp #,##0_-',
+            'G' => NumberFormat::FORMAT_DATE_DATETIME,
            ];
     }
 
@@ -46,12 +46,13 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
         
         return [
             
+            $dataPenjualan->kode_transaksi,
             $dataPenjualan->kode_barang,
             $dataPenjualan->nama_barang,
             $dataPenjualan->total_brg,
             $dataPenjualan->satuan,
             $dataPenjualan->total_harga,
-            Date::dateTimeToExcel(date_create($dataPenjualan->tgl_transaksi)),
+            Date::dateTimeToExcel(date_create($dataPenjualan->created_at)),
             $dataPenjualan->keterangan,
             
         ];
@@ -60,6 +61,7 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
     public function headings(): array
     {
         return [
+            'Kode Transaksi',
             'Kode Barang',
             'Nama Barang',
             'Jumlah',

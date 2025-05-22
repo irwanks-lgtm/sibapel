@@ -25,7 +25,6 @@
                     <div class="mb-2">
                       <table>
                         <tr>
-                          
                           <td><label>Suplier</label></td>
                           <td colspan="3" style="padding-left: 20px;">
                             <select name="suplier" id="inputSuplier" class="form-select my-2" style="width:70%;">
@@ -34,44 +33,68 @@
                               <option value="<?php echo $sup->id_suplier; ?>"><?php echo $sup->nama_suplier; ?></option>
                               <?php } ?>
                             </select>
+                              @error('suplier')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Kode Barang</label></td>
                           <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Kode Barang" name="kdbrg" id="kdbrg">
+                              @error('kdbrg')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Barcode</label></td>
                           <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Barcode" name="barcode" id="barcode">
+                          @error('barcode')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Nama Barang</label></td>
                           <td colspan="3" style="padding-left: 20px;">
                           <input type="text" class="form-control my-2" placeholder="Nama Barang" name="nmbrg" id="nmbrg">
+                          @error('nmbrg')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>Jumlah</label></td>
                           <td style="padding-left: 20px;">
                             <input type="text" class="form-control my-2" placeholder="Jumlah" name="jml" id="jml">
+                            @error('jml')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                           <td><label class="mx-2">Satuan</label></td>
                           <td class="form-inline" style="padding-left: 10px;">
                             <input type="text" class="form-control" placeholder="Satuan" name="satuan" id="satuan">
+                            @error('satuan')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr >
                           <td><label>Harga Beli</label></td>
                           <td style="padding-left: 20px;">
                           <input type="text" class="form-control" name="harga_beli" id="beli" placeholder="Harga Beli">
+                          @error('harga_beli')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                           <td><label class="mx-2">Harga Jual</label></td>
                           <td style="padding-left: 10px;">
                           <input type="text" class="form-control" name="harga_jual" id="jual" placeholder="Harga Jual">
+                          @error('harga_jual')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr>
@@ -85,12 +108,18 @@
                               <option value="Pot Bunga">Pot Bunga</option>
                               <option value="Furnitur">Furnitur</option>
                             </select>
+                            @error('jenis')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                         </tr>
                         <tr>
                           <td><label>Rak Simpan</label></td>
                           <td style="padding-left: 20px;">
                             <input type="text" class="form-control my-2" name="rak" id="rak" placeholder="Kode Rak">
+                            @error('rak')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                           <td style="padding-left: 15px;"><em class="text-xs">contoh : A.1.2 </em></td>
                         </tr>
@@ -98,6 +127,9 @@
                           <td><label>Waktu Tunggu</label></td>
                           <td style="padding-left: 20px;width:140px;">
                             <input type="text" class="form-control my-2" name="waktu_tg" id="waktu_tg" placeholder="Waktu Tunggu">
+                            @error('waktu_tg')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
                           </td>
                           <td style="padding-left: 15px;"><em class="text-xs">Hari </em></td>
                         </tr>

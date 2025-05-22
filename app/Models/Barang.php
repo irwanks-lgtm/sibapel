@@ -22,8 +22,7 @@ class Barang extends Model
         'harga_jual',
         'jenis_barang',
         'kode_rak',
-        'tgl_masuk',
-        'qty_min',
+        'jml_min',
         'waktu_tg'
     ];
 

@@ -22,7 +22,7 @@
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
                   <form method="POST" action="{{ url('tambah-masuk') }}" autocomplete="off">
-                    @csrf        
+                    @csrf
                     <div class="mb-2">
                       <table>
                         <tr>
@@ -63,8 +63,11 @@
                         <tr >
                           <td><label>Jumlah Barang Masuk</label></td>
                           <td style="padding-left: 20px;">
-                            <input type="text" class="form-control my-2" placeholder="Jumlah Barang Masuk" name="brgMasuk" id="brgMasuk">
-                          </td>
+                            <input type="text" class="form-control my-2" placeholder="Jumlah Barang Masuk" name="brgMasuk" id="brgMasuk" required>
+                            @error('jml')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                            @enderror
+                        </td>
                         </tr>
                         <tr>
                           <td><label>Total Harga</label></td>
@@ -83,9 +86,9 @@
       </div>
   </main>
 
-   
+
 <script type="text/javascript">
-  
+
   $('#nmbrg').change(function(){
     var id = $(this).val();
     var url = '{{ route("getDetails", ":nmbrg") }}';
@@ -115,12 +118,12 @@
         }
       });
   });
-  
+
   $('#brgMasuk').change(function(){
     var nama = $('#nmbrg').val();
     var url = '{{ route("getDetails", ":nmbrg") }}';
     url = url.replace(':nmbrg', nama);
-    
+
     var id = $(this).val();
     $.ajax({
         url: url,

@@ -1,18 +1,16 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
-  
-  <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.css" rel="stylesheet">
-  <script src="https://cdn.datatables.net/plug-ins/2.1.8/dataRender/datetime.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-  <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/plug-ins/2.1.8/dataRender/datetime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.js"></script>
 
-  
+
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg animate__animated animate__bounceInLeft animate__delay-1s">
     <div class="container-fluid py-4">
       <div class="row">
@@ -46,7 +44,7 @@
       </div>
   </main>
   <script>
-    
+
   </script>
   <script>
         $(function() {
@@ -55,7 +53,7 @@
                 serverSide: true,
                 order: [[5, 'asc']],
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian-Alternative.json',
+                    url: 'https://cdn.datatables.net/plug-ins/2.3.0/i18n/id.json',
                     "paginate": {
                                     "first": "«",
                                     "last": "»",
@@ -73,7 +71,10 @@
                     },
                     {
                         data: 'nama_barang',
-                        name: 'nama_barang'
+                        name: 'nama_barang',
+                        render: function (data, type, row) {
+                            return type === 'display' && data.length > 15 ? data.substr(0, 15) + '…' : data;
+                        }
                     },
                     {
                         data: 'jenis_transaksi',
@@ -87,31 +88,28 @@
                         data: 'harga',
                         name: 'harga',
                         render:  $.fn.dataTable.render.number('.', null , null, 'Rp. ')
-                         
+
                     },
                     {
-                        data: 'tgl_transaksi',
-                        name: 'tgl_transaksi',
-                        render: function ( data, type, row ) {
-                          var dateSplit = data.split(/ |-/);
-                          return type === "display" || type === "filter" ?
-                          dateSplit[2] +'-'+ dateSplit[1] +'-'+ dateSplit[0] + ' ' + dateSplit[3] :
-                          data;
+                        data: 'created_at',
+                        name: 'created_at',
+                        render: function (data, type, row, meta) {
+                            return moment.utc(data).local().format('DD/MM/YYYY HH:mm:ss');
                         }
+
                     },
                     {
                         data: 'keterangan',
-                        name: 'keterangan'
+                        name: 'keterangan',
                     },
                 ],
                 columnDefs: [
                     { width: '70px', targets: [ 2, 3 ] },
-                    { className: 'dt-center', targets: '_all' }
-                ],
-                initComplete: function () {
-                }
+                    { width: '110px', targets: [ 1 ] },
+                    { className: 'dt-center', targets: '_all' },
+                ]
             });
         });
     </script>
-  
+
   @endsection

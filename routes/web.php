@@ -40,7 +40,6 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('tambah-pengguna');
 	Route::get('hapus-pengguna/{id}', [UserController::class, 'hapus'])->name('hapus-pengguna');
 
-
 	Route::get('stok-opname', [StokOpnameController::class, 'indexOpname'])->name('stok-opname');
 	Route::get('buat-opname', [StokOpnameController::class, 'buatOpname'])->name('buat-opname');
     Route::get('data-opname/{kode_stok}', [StokOpnameController::class, 'dataOpname'])->name('data-opname');
@@ -49,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('download/opname/{kode_stok}', [StokOpnameController::class, 'export'])->name('cetak-opname');
 
 	Route::controller(TransaksiController::class)->group(function(){
-		Route::get('retur-barang','showKeluar')->name('showKeluar');
+		Route::get('retur-barang','barangKeluar')->name('barangKeluar');
 		Route::get('barang-keluar','indexKeluar')->name('barang-keluar');
 		Route::post('retur','tambahRetur')->name('returBarang');
 		Route::get('pos','indexPos')->name('pointofsale');
@@ -57,7 +56,9 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('get/detail/{nmbrg}','getDetails')->name('getDetails');
 		Route::get('barang-masuk', 'indexMasuk')->name('barang-masuk');
 		Route::post('tambah-masuk','tambahMasuk')->name('tambahMasuk');
-		Route::get('tambah-barang-masuk','showMasuk')->name('showMasuk');
+		Route::get('tambah-barang-masuk','barangMasuk')->name('barangMasuk');
+        Route::get('hapus-masuk/{id}', 'hapus')->name('hapus-masuk');
+        Route::get('detail-barang-masuk/{id}', 'detailMasuk')->name('detail-masuk');
 
 		Route::get('laporanTransaksi', 'laporanTransaksi')->name('laporan.transaksi');
 		Route::get('laporan-transaksi', 'lpTrx')->name('laporanTransaksi');
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('cetak-transaksi','transaksiMasuk')->name('cetakTransaksiMasuk');
 		Route::get('/download/transaksi/masuk','export')->name('download.transaksi.masuk');
 	});
+
+
 
 	Route::get('data-barang', [BarangController::class, 'show'])->name('data-barang');
 	Route::get('tambah-data-barang', [BarangController::class, 'tambahbarang'])->name('tambah-data-barang');
@@ -103,7 +106,6 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/session', [SessionsController::class, 'store']);
 
 });
-
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');

@@ -78,7 +78,6 @@ class StokOpnameController extends Controller
                 'jml_sistem' => $brg->jml_brg,
                 'jml_aktual' => 0,
                 'selisih' => 0,
-                'waktu_stok' => now(),
                 'id_pengguna' => $req->pic,
                 'kode_rak' => $req->rak,
                 'status' => 'PROSES',

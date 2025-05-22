@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('alamat', length: 40);
             $table->string('no_hp', length: 13);
             $table->string('pembayaran', length: 10);
-            $table->string('keterangan', length: 15)->nullable();
+            $table->string('keterangan', length: 30)->nullable();
             $table->timestamps();
         });
     }

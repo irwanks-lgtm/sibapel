@@ -17,7 +17,6 @@ class Stok extends Model
         'jml_sistem',
         'jml_aktual',
         'selisih',
-        'waktu_stok',
         'kode_rak',
         'status',
         'id_pengguna',

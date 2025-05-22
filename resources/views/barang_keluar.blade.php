@@ -47,7 +47,7 @@
                         <p class="text-xs font-weight-bold mb-0">@currency($tx->harga)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->tgl_transaksi), "j M Y") ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->created_at), "j M Y") ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?php echo $tx->jenis_transaksi ?></p>
@@ -72,5 +72,5 @@
         </div>
       </div>
   </main>
-  
+
   @endsection

@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class BarangController extends Controller
 {
     public function show(){
-        $barang = Barang::all();
+        $barang = Barang::orderBy('created_at', 'ASC')->get();
         return view('data_barang', ['barang' => $barang]);
     }
 
@@ -29,6 +29,20 @@ class BarangController extends Controller
     }
 
     public function tambahDataBarang(Request $req){
+
+        $validatedData = $req->validate([
+            'kdbrg' => "required",
+            'suplier' => "required",
+            'nmbrg' => "required",
+            'jml' => "required|numeric",
+            'satuan' => "required",
+            'harga_beli' => "required",
+            'harga_jual' => "required",
+            'jenis' => "required",
+            'rak' => "required|max:5",
+            'waktu_tg' => "required|numeric"
+        ]);
+
         $hbeli = $req->harga_beli;
         $inthbeli = str_replace('Rp. ','', $hbeli);
         $beli = str_replace('.','', $inthbeli);
@@ -48,7 +62,6 @@ class BarangController extends Controller
             'harga_jual' => $jual,
             'jenis_barang' => $req->jenis,
             'kode_rak' => $req->rak,
-            'tgl_masuk' => now(),
             'jml_min' => 0,
             'waktu_tg' => $req->waktu_tg,
             'created_at' => now()
@@ -93,7 +106,7 @@ class BarangController extends Controller
                             ->groupBy('transaksi.kode_barang')
                             ->selectRaw('transaksi.*, barang.nama_barang, sum(transaksi.jml) as total, barang.waktu_tg')
                             ->whereMonth('transaksi.tgl_transaksi', $bulanLalu)->get();
-        
+
         foreach($jual as $j){
             //menghitung safety stock
             $safety = ($j->total - ($j->total/30)) * ($j->waktu_tg/30);

@@ -44,12 +44,21 @@ class SuplierController extends Controller
     }
 
     public function editSuplier(Request $req){
+
+        $validatedData = $req->validate([
+            'namasup' => "required|max:100",
+            'alamat' => "required|max:50",
+            'nohp' => "required|numeric",
+            'pembayaran' => "required"
+        ]);
+
         Suplier::where('id_suplier', $req->idsup)->update([
             'nama_suplier' => $req->namasup,
             'alamat' => $req->alamat,
             'no_hp' => $req->nohp,
             'pembayaran' => $req->pembayaran,
-            'keterangan' => $req->keterangan
+            'keterangan' => $req->keterangan,
+            'updated_at' => now()
         ]);
         return redirect('data-suplier');
     }

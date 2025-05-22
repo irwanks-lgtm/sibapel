@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Transaksi;
+use App\Models\Suplier;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -20,21 +21,32 @@ class TransaksiController extends Controller
     public function indexKeluar(){
         $trx = Transaksi::where('jenis_transaksi', '<>', 'MASUK')
                     ->leftjoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
-                    ->select('transaksi.*', 'barang.nama_barang')->orderBy('tgl_transaksi', 'ASC')->get();
+                    ->select('transaksi.*', 'barang.nama_barang')->orderBy('transaksi.created_at', 'ASC')->get();
         return view('barang_keluar', ['trx' => $trx]);
     }
 
     public function indexMasuk(){
-        $trx = Transaksi::where('jenis_transaksi', '=', 'MASUK')->orderBy('tgl_transaksi', 'ASC')->get();
+        $trx = Transaksi::where('jenis_transaksi', '=', 'MASUK')
+                ->leftjoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
+                ->select('transaksi.*', 'barang.nama_barang')->orderBy('transaksi.created_at', 'ASC')->get();
         return view('barang_masuk', ['trx' => $trx]);
     }
 
-    public function showMasuk(){
+    public function barangMasuk(){
         $barang = Barang::all();
         return view('tambah_barang_masuk', ['barang' => $barang]);
     }
 
-    public function showKeluar(){
+    public function detailMasuk($id){
+        $tr = Transaksi::join('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
+                        ->join('suplier', 'barang.id_suplier', '=', 'suplier.id_suplier')
+                        ->where('kode_transaksi', $id)
+                        ->select('transaksi.*', 'barang.kode_barang', 'barang.nama_barang', 'suplier.nama_suplier')->get();
+
+        return view('detail_barang_masuk', ['tr' => $tr]);
+    }
+
+    public function barangKeluar(){
         $barang = Barang::all();
         return view('barangkeluar/retur_barang', ['barang' => $barang]);
     }
@@ -42,8 +54,8 @@ class TransaksiController extends Controller
     public function indexPos(){
         $barang = Barang::all();
         return view('pos', ['barang' => $barang]);
-    }  
-    
+    }
+
     public function getDetails($nmbrg = 0)
     {
         $data = Barang::where('nama_barang', $nmbrg)
@@ -54,14 +66,14 @@ class TransaksiController extends Controller
     }
 
     public function tambahRetur(Request $req){
-        //membuat tanggal untuk tanggal transaksi dan untuk kode transaksi
-        $date = date_format(date_create(now()), "Y-m-d H:i:s");
+        try{
+        //membuat tanggal untuk kode transaksi
         $datenow = date_format(date_create(now()), "dmY");
 
        //cek data kode transaksi terakhir
         $kode = Transaksi::select('kode_transaksi')->where('kode_transaksi', 'like', '%RT'.'%'.$datenow.'%')->get()->last();
 
-        //set kode transaksi 
+        //set kode transaksi
         if(empty($kode)){
             $kodebaru = 'RT'. $datenow . '0001';
         }else{
@@ -79,7 +91,7 @@ class TransaksiController extends Controller
                     $kodebaru = 'RT'. $datenow . (string)$intKode;
                 }
         }
-        
+
 
         //mengambil id user
         $iduser = User::select('id_pengguna')->where('nama_pengguna' , '=' ,  Session::get('name'))->get();
@@ -100,8 +112,8 @@ class TransaksiController extends Controller
             'jenis_transaksi'=> 'RETUR',
             'jml'=> $req->retur,
             'harga'=> $intHarga,
-            'tgl_transaksi'=> $date,
-            'keterangan'=> $req->keterangan
+            'keterangan'=> $req->keterangan,
+            'created_at' => now()
         ]);
 
         //update qty pada tabel barang
@@ -110,63 +122,74 @@ class TransaksiController extends Controller
             'jml_brg' => $intQty
         ]);
         return redirect('barang-keluar');
+    }catch(ValidationException $excep){
+        return redirect('retur-barang');
+    }
     }
 
     public function tambahMasuk(Request $req){
-        //membuat tanggal untuk tanggal transaksi dan untuk kode transaksi
-        $date = date_create(now());
-        $datenow = date_format(date_create(now()), "dmY");
+        try{
+            $validatedData = $req->validate([
+                'jml' => "required|numeric"
+            ]);
 
-       //cek data kode transaksi terakhir
-        $kode = Transaksi::select('kode_transaksi')->where('kode_transaksi', 'like', '%BM'.'%'.$datenow.'%')->get()->last();
+            //membuat tanggal untuk kode transaksi
+            $datenow = date_format(date_create(now()), "dmY");
 
-        //set kode transaksi 
-        if(empty($kode)){
-            $kodebaru = 'BM'. $datenow . '0001';
-        }else{
-            $kodebaru = json_decode($kode)->kode_transaksi;
-            $kd = Str::of($kodebaru)->afterLast($datenow);
-            $intKode = (int) $kd->value + 1;
-            //mengubah integer Kode Transaksi menjadi string
-                if(strlen($intKode)==1){
-                     $kodebaru = 'BM'. $datenow . "000" . (string)$intKode;
-                }else if(strlen($intKode)==2){
-                    $kodebaru = 'BM'. $datenow . "00" . (string)$intKode;
-                }else if(strlen($intKode)==3){
-                    $kodebaru = 'BM'. $datenow . "0" . (string)$intKode;
-                }else{
-                    $kodebaru = 'BM'. $datenow . (string)$intKode;
-                }
+        //cek data kode transaksi terakhir
+            $kode = Transaksi::select('kode_transaksi')->where('kode_transaksi', 'like', '%BM'.'%'.$datenow.'%')->get()->last();
+
+            //set kode transaksi
+            if(empty($kode)){
+                $kodebaru = 'BM'. $datenow . '0001';
+            }else{
+                $kodebaru = json_decode($kode)->kode_transaksi;
+                $kd = Str::of($kodebaru)->afterLast($datenow);
+                $intKode = (int) $kd->value + 1;
+                //mengubah integer Kode Transaksi menjadi string
+                    if(strlen($intKode)==1){
+                        $kodebaru = 'BM'. $datenow . "000" . (string)$intKode;
+                    }else if(strlen($intKode)==2){
+                        $kodebaru = 'BM'. $datenow . "00" . (string)$intKode;
+                    }else if(strlen($intKode)==3){
+                        $kodebaru = 'BM'. $datenow . "0" . (string)$intKode;
+                    }else{
+                        $kodebaru = 'BM'. $datenow . (string)$intKode;
+                    }
+            }
+
+
+            //mengambil id user
+            $iduser = User::select('id_pengguna')->where('nama_pengguna' , '=' ,  Session::get('name'))->get();
+            $id = json_decode($iduser, true);
+
+            //mengambil data barang untuk menambah qty dan menghitung total harga
+            $barang = Barang::select('harga_beli', 'jml_brg')->where('kode_barang', '=' , $req->kodebrg)->get();
+            $brg = json_decode($barang, true);
+
+            //menghitung total harga
+            $intHarga = (int)$brg[0]['harga_beli'] * (int)$req->brgMasuk;
+
+            //insert data transaksi
+
+            Transaksi::insert([
+                'kode_transaksi'=> $kodebaru ,
+                'kode_barang'=> $req->kodebrg,
+                'id_pengguna'=> $id[0]['id_pengguna'],
+                'jenis_transaksi'=> 'MASUK',
+                'jml'=> $req->brgMasuk,
+                'harga'=> $intHarga,
+                'created_at' => now()
+            ]);
+            //update jml pada tabel barang
+            $intQty = (int)$brg[0]['jml_brg'] + (int)$req->brgMasuk;
+            Barang::where('kode_barang', '=' , $req->kodebrg)->update([
+                'jml_brg' => $intQty
+            ]);
+            return redirect('barang-masuk');
+        }catch(ValidationException $e){
+            return redirect('tambah-barang-masuk');
         }
-        
-
-        //mengambil id user
-        $iduser = User::select('id_pengguna')->where('nama_pengguna' , '=' ,  Session::get('name'))->get();
-        $id = json_decode($iduser, true);
-
-        //mengambil data barang untuk menambah qty dan menghitung total harga
-        $barang = Barang::select('harga_beli', 'jml_brg')->where('kode_barang', '=' , $req->kodebrg)->get();
-        $brg = json_decode($barang, true);
-
-        //menghitung total harga
-        $intHarga = (int)$brg[0]['harga_beli'] * (int)$req->brgMasuk;
-
-        //insert data transaksi
-        Transaksi::insert([
-            'kode_transaksi'=> $kodebaru ,
-            'kode_barang'=> $req->kodebrg,
-            'id_pengguna'=> $id[0]['id_pengguna'],
-            'jenis_transaksi'=> 'MASUK',
-            'jml'=> $req->brgMasuk,
-            'harga'=> $intHarga,
-            'tgl_transaksi'=> $date,
-        ]);
-        //update jml pada tabel barang
-        $intQty = (int)$brg[0]['jml_brg'] + (int)$req->brgMasuk;
-        Barang::where('kode_barang', '=' , $req->kodebrg)->update([
-            'jml_brg' => $intQty
-        ]);
-        return redirect('barang-masuk');
     }
 
     public function tambahPenjualan(Request $req){
@@ -177,7 +200,7 @@ class TransaksiController extends Controller
        //cek data kode transaksi terakhir
         $kode = Transaksi::select('kode_transaksi')->where('kode_transaksi', 'like', '%SL'.$datenow.'%')->orderBy('kode_transaksi', 'ASC')->get()->last();
 
-        //set kode transaksi 
+        //set kode transaksi
         if(empty($kode)){
             $kodebaru = 'SL'. $datenow . '0001';
         }else{
@@ -195,7 +218,7 @@ class TransaksiController extends Controller
                     $kodebaru = 'SL'. $datenow . (string)$intKode;
                 }
         }
-        
+
         //mengambil id user
         $iduser = User::select('id_pengguna')->where('nama_pengguna' , '=' ,  Session::get('name'))->get();
         $id = json_decode($iduser, true);
@@ -222,8 +245,8 @@ class TransaksiController extends Controller
             'jenis_transaksi'=> 'POS',
             'jml'=> $req->jml,
             'harga'=> $harga,
-            'tgl_transaksi'=> $date,
-            'keterangan' => $req->keterangan
+            'keterangan' => $req->keterangan,
+            'created_at' => now()
         ]);
 
         //update qty pada tabel barang
@@ -253,7 +276,7 @@ class TransaksiController extends Controller
 
     public function transaksi(){
         $data = Transaksi::leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
-            ->select('transaksi.*', 'barang.nama_barang')->orderBy('tgl_transaksi', 'asc')->get();
+            ->select('transaksi.*', 'barang.nama_barang')->orderBy('transaksi.created_at', 'asc')->get();
         return view('laporan/transaksi', ['trx' => $data]);
     }
 
@@ -273,7 +296,7 @@ class TransaksiController extends Controller
                 ->leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
                 ->groupBy('transaksi.kode_barang')
                 ->selectRaw('transaksi.*, barang.nama_barang, barang.satuan, sum(transaksi.jml) as total_brg, sum(transaksi.harga) as total_harga')
-                ->orderBy('tgl_transaksi', 'asc')->get();
+                ->orderBy('transaksi.created_at', 'asc')->get();
         return DataTables::of($data)->make(true);
     }
     public function cetakPenjualan(){
@@ -281,7 +304,7 @@ class TransaksiController extends Controller
                 ->leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
                 ->groupBy('transaksi.kode_barang')
                 ->selectRaw('transaksi.*, barang.nama_barang, barang.satuan, sum(transaksi.jml) as total_brg, sum(transaksi.harga) as total_harga')
-                ->orderBy('tgl_transaksi', 'asc')->get();
+                ->orderBy('transaksi.created_at', 'asc')->get();
         return view('laporan/penjualan', ['data' => $data]);
     }
 
@@ -289,6 +312,10 @@ class TransaksiController extends Controller
         $datenow = date_format(date_create(now()), "dmY");
         return Excel::download(new PenjualanExport, 'data_penjualan_'.$datenow.'.xlsx');
     }
-    
+
+    public function hapus($id){
+        Transaksi::where('kode_transaksi', $id)->delete();
+        return redirect('barang-masuk')->with(['success'=>'Data Transaksi Sudah Di Hapus']);
+    }
 
 }

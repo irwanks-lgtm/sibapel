@@ -14,15 +14,14 @@ return new class extends Migration
         Schema::create('stok_opname', function (Blueprint $table) {
             $table->increments('id_stok');
             $table->char('kode_stok', length: 15)->index();
-            $table->string('kode_barang', length: 15);
+            $table->char('kode_barang', length: 15);
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
             $table->integer('jml_sistem');
             $table->integer('jml_aktual');
             $table->integer('selisih');
-            $table->dateTime('waktu_stok');
             $table->string('kode_rak', length: 5);
             $table->string('status', length: 8);
-            $table->string('id_pengguna', length: 15);
+            $table->char('id_pengguna', length: 15);
             $table->foreign('id_pengguna')->references('id_pengguna')->on('user');
             $table->timestamps();
         });

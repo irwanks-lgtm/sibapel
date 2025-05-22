@@ -42,7 +42,7 @@
                         <p class="text-xs font-weight-bold mb-0"><?php echo $tx->kode_transaksi ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->kode_barang ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $tx->nama_barang ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?php echo $tx->jml ?></p>
@@ -51,13 +51,13 @@
                         <p class="text-xs font-weight-bold mb-0">@currency($tx->harga)</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->tgl_transaksi), "j M Y") ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?php  echo date_format(date_create($tx->created_at), "j M Y") ?></p>
                       </td>
                       <td class="align-middle">
-                        <a href="#" class="btn bg-gradient-info btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                          <i class="fa-regular fa-pen-to-square"></i>
+                        <a href="detail-barang-masuk/{{$tx->kode_transaksi}}" class="btn bg-gradient-success btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail">
+                          <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                        <a href="#" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">
+                        <a href="hapus-masuk/{{$tx->kode_transaksi}}" class="btn bg-gradient-danger btn-xs mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Hapus">
                           <i class="fa-regular fa-trash-can"></i>
                         </a>
                       </td>
@@ -70,5 +70,5 @@
         </div>
       </div>
   </main>
-  
+
   @endsection

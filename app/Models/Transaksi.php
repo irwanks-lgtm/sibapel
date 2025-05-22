@@ -17,7 +17,6 @@ class Transaksi extends Model
         'jenis_transaksi',
         'qty',
         'harga',
-        'tgl_transaksi',
         'keterangan'
     ];
 

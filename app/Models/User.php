@@ -29,7 +29,6 @@ class User extends Authenticatable
         'tempat_lhr',
         'tgl_lhr',
         'nomor_hp',
-        'tgl_masuk',
     ];
 
     /**

@@ -17,14 +17,13 @@ class UserSeeder extends Seeder
     {
         DB::table('user')->insert([
             'id_pengguna' => 'ADM0001',
-            'email' => 'irwan@gmail.com',
-            'nama_pengguna' => 'irwan kurniadi',
-            'password' => Hash::make('secret'),
+            'email' => 'admin@sibapel.com',
+            'nama_pengguna' => 'admin',
+            'password' => Hash::make('adminsibapel'),
             'alamat' => 'jagalan',
             'tempat_lhr' => 'semarang',
             'tgl_lhr' => now(),
             'nomor_hp' => '089503488468',
-            'tgl_masuk' => now(),
             'role' => 'admin',
             'created_at' => now(),
         ]);

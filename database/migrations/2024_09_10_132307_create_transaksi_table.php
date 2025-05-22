@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->char('kode_transaksi', length: 15);
             $table->primary('kode_transaksi');
-            $table->string('kode_barang', length: 15);
+            $table->char('kode_barang', length: 15);
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
-            $table->string('id_pengguna', length: 15);
+            $table->char('id_pengguna', length: 15);
             $table->foreign('id_pengguna')->references('id_pengguna')->on('user');
             $table->string('jenis_transaksi', length: 8);
             $table->integer('jml');
             $table->string('harga', length: 10);
-            $table->dateTime('tgl_transaksi');
             $table->string('keterangan', length: 20)->nullable();
             $table->timestamps();
 

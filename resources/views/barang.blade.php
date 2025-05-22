@@ -53,7 +53,7 @@
 					<td>{{$b->jenis_barang}}</td>
 					<td>{{$b->kode_rak}}</td>
 					<td>{{$b->jml_min}}</td>
-					<td>{{$b->tgl_masuk}}</td>
+					<td>{{$b->created_at}}</td>
 				</tr>
 				@endforeach
 			</tbody>

@@ -12,12 +12,14 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
-class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithColumnFormatting, WithHeadings, ShouldAutoSize, WithCustomStartCell
+class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithColumnFormatting, WithHeadings, ShouldAutoSize, WithCustomStartCell, WithStrictNullComparison
 {
     protected $kodeStok;
     protected $status;
@@ -63,7 +65,7 @@ class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithC
                ];
         }else{
             return [
-                'H' => NumberFormat::FORMAT_DATE_DATETIME,
+                'I' => NumberFormat::FORMAT_DATE_DATETIME,
                ];
         }
 
@@ -78,7 +80,8 @@ class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithC
                 $dataStok->nama_barang,
                 $dataStok->kode_rak,
                 $dataStok->jml_aktual,
-                Date::dateTimeToExcel(date_create($dataStok->waktu_stok))
+                $dataStok->keterangan,
+                date_format(date_create($dataStok->created_at), 'd M Y H:i:s')
             ];
         }else{
             return [
@@ -89,8 +92,8 @@ class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithC
                 $dataStok->jml_sistem,
                 $dataStok->jml_aktual,
                 $dataStok->selisih,
-                Date::dateTimeToExcel(date_create($dataStok->waktu_stok))
-
+                $dataStok->keterangan,
+                date_format(date_create($dataStok->created_at), 'd M Y H:i:s')
             ];
         }
     }
@@ -109,6 +112,7 @@ class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithC
                 'Nama Barang',
                 'Kode Rak',
                 'Jumlah Aktual',
+                'Keterangan',
                 'Waktu Stok'
             ];
         }else{
@@ -120,6 +124,7 @@ class StokOpnameExport implements FromCollection, WithStyles, WithMapping, WithC
                 'Jumlah',
                 'Jumlah Aktual',
                 'Selisih',
+                'Keterangan',
                 'Waktu Stok'
             ];
         }

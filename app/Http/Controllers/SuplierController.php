@@ -13,7 +13,6 @@ class SuplierController extends Controller
     }
 
     public function tambah(Request $req){
-        try{
             $validatedData = $req->validate([
                 'idsup' => "required|max:100",
                 'namasup' => "required|max:100",
@@ -21,7 +20,7 @@ class SuplierController extends Controller
                 'nohp' => "required|numeric",
                 'pembayaran' => "required"
             ]);
-
+        try{
             Suplier::insert([
                 'id_suplier' => $req->idsup,
                 'nama_suplier' => $req->namasup,
@@ -31,9 +30,9 @@ class SuplierController extends Controller
                 'keterangan' => $req->keterangan,
                 'created_at' => now()
             ]);
-            return redirect('data-suplier');
-        }catch(ValidationException $excep){
-            return back();
+            return redirect('data-suplier')->with(['success' => 'Data Suplier Berhasil Di Tambah']);
+        }catch(\Illuminate\Database\QueryException $excep){
+            return back()->with(['failed' => 'Data Suplier Sudah Ada']);
         }
 
     }
@@ -64,7 +63,11 @@ class SuplierController extends Controller
     }
 
     public function hapus($id){
-        Suplier::where('id_suplier', $id)->delete();
-        return redirect('data-suplier')->with(['success'=>'Data Suplier Sudah Di Hapus']);
+        try{
+            Suplier::where('id_suplier', $id)->delete();
+            return redirect('data-suplier')->with(['success'=>'Data Suplier Sudah Di Hapus']);
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect('data-suplier')->with(['failed'=>'Data Suplier Tidak Dapat Di Hapus, Karena Masih Digunakan']);
+        }
     }
 }

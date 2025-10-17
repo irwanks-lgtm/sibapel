@@ -33,6 +33,10 @@
                           <td><label>Nama Barang</label></td>
                           <td><?php echo $brg->nama_barang ?></td>
                         </tr>
+                        <tr>
+                          <td><label>Deskripsi</label></td>
+                          <td><p class="text-wrap text-break"><?php echo $brg->deskripsi?></p></td>
+                        </tr>
                         <tr >
                           <td><label>Jumlah</label></td>
                           <td><?php echo $brg->jml_brg . " " . $brg->satuan ?>
@@ -66,6 +70,7 @@
                           <td><label>Waktu Tunggu</label></td>
                           <td><?php echo $brg->waktu_tg ?> Hari</td>
                         </tr>
+
                         <?php } ?>
                       </table>
                     </div>

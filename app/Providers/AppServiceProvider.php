@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('currency', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
         date_default_timezone_set('Asia/Jakarta');
+        Paginator::useBootstrapFive();
+        app()->setLocale('id');
     }
 }

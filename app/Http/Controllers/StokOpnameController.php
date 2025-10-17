@@ -9,13 +9,20 @@ use App\Models\User;
 use App\Models\Stok;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StokOpnameExport;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class StokOpnameController extends Controller
 {
-    public function indexOpname(){
-        $stokOpname = Stok::join('user', 'stok_opname.id_pengguna', '=', 'user.id_pengguna')
-                            ->select('stok_opname.*', 'user.nama_pengguna')->groupBy('kode_stok')->get();
-        return view('stok_opname', ['stok' => $stokOpname]);
+    public function indexOpname(Request $req){
+        $stok = Stok::join('user', 'stok_opname.id_pengguna', '=', 'user.id_pengguna')
+                            ->select('stok_opname.*', 'user.nama_pengguna')->groupBy('kode_stok')->orderBy('stok_opname.created_at')->paginate(15);
+        if ($req->ajax()) {
+            return view('stok_opname', compact('stok'))->render();
+        }
+        return view('stok_opname', ['stok' => $stok]);
     }
 
     public function buatOpname(){
@@ -27,25 +34,50 @@ class StokOpnameController extends Controller
     public function dataOpname($kode_stok){
         $dataOpname = Stok::join('barang', 'stok_opname.kode_barang', '=', 'barang.kode_barang')
                             ->join('user', 'stok_opname.id_pengguna', '=', 'user.id_pengguna')
+                            ->select('stok_opname.*', 'barang.kode_barang', 'barang.nama_barang', 'user.nama_pengguna')
                             ->where('stok_opname.kode_stok', $kode_stok)->get();
         return view('data_opname', ['dataOpname' => $dataOpname, 'kodeStok' => $kode_stok]);
     }
 
     public function simpanOpname(Request $req){
-        foreach($req->kdbrg as $kb){
-            $dataOpname = Stok::where('kode_stok', $req->kodeStok)
-                                ->where('kode_barang', $req->$kb)->update([
-                                    'jml_aktual' => $req->$kb['aktual'],
-                                    'selisih' => $req->$kb['selisih'],
-                                    'status' => 'SELESAI',
-                                    'updated_at' => now()
-                                ]);
-            $updateBarang = Barang::where('kode_barang', $req->$kb)->update([
-                'jml_brg' => $req->$kb['aktual'],
-                'updated_at' => now()
-            ]);
+        $validatedData = Validator::make($req->all(), [
+            '*.*.aktual' => "required|numeric"
+        ]);
+        if ($validatedData->fails()) {
+        // Melempar ValidationException secara manual dengan data error disimpan ke session
+        return redirect('data-stok/'.$req->kodeStok)->with(['failed'=>'Pastikan Input dengan Benar']);
         }
-        return redirect('stok-opname')->with(['success'=>'Data Opname Berhasil Di Simpan']);
+            if(Str::contains(Session::get('idUser'), 'ADM')){
+                $index = 1;
+                foreach($req->data as $data){
+
+                    $dataOpname = Stok::where('kode_stok', $req->kodeStok)->where('kode_barang', $req->data[$index]['kdbrg'])->update([
+                        'jml_aktual' => $req->data[$index]['aktual'],
+                        'selisih' => $req->data[$index]['selisih'],
+                        'status' => 'SELESAI',
+                        'keterangan' => $req->data[$index]['keterangan'],
+                        'updated_at' => now()
+                    ]);
+
+                    $updateBarang = Barang::where('kode_barang', $req->data[$index]['kdbrg'])->update([
+                        'jml_brg' => $req->data[$index]['aktual'],
+                        'updated_at' => now()
+                    ]);
+                    $index++;
+                }
+                return redirect('validasi-stok')->with(['success'=>'Data Opname Berhasil Di Simpan']);
+            }else{
+                $index = 1;
+                foreach($req->data as $data){
+                    $dataOpname = Stok::where('kode_stok', $req->kodeStok)->where('kode_barang', $req->data[$index]['kdbrg'])->update([
+                        'jml_aktual' => $req->data[$index]['aktual'],
+                        'keterangan' => $req->data[$index]['keterangan'],
+                        'updated_at' => now()
+                    ]);
+                    $index++;
+                }
+                return redirect('validasi-stok')->with(['success'=>'Data Opname Berhasil Di Simpan']);
+            }
     }
 
 
@@ -88,11 +120,17 @@ class StokOpnameController extends Controller
                 'created_at' => now()
             ]);
         }
-        return redirect('stok-opname');
+        return redirect('validasi-stok');
     }
 
     public function export($kodeStok){
         $datenow = date_format(date_create(now()), "dmY");
-        return Excel::download(new StokOpnameExport($kodeStok), 'stok_opname_'. $datenow .'_'. $kodeStok .'.xlsx');
+        $status = Stok::select('status')->where('kode_stok', $kodeStok)->get();
+        if($status[0]->status=="PROSES"){
+            $namaFile = 'Form_validasi_stok_';
+        }else{
+            $namaFile = 'Laporan_validasi_stok_';
+        }
+        return Excel::download(new StokOpnameExport($kodeStok), $namaFile. $datenow .'_'. $kodeStok .'.xlsx');
     }
 }

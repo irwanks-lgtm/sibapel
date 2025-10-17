@@ -9,6 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/moment.js/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg animate__animated animate__bounceInLeft animate__delay-1s">
@@ -17,10 +20,17 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header d-flex flex-row justify-content-between">
-                <div>
-                    <h5 class="mb-0">Laporan Penjualan</h5>
-                </div>
-                  <a href="{{url('cetak-penjualan')}}" class="btn bg-gradient-success btn-sm mb-0 mx-2" type="button">CETAK</a>
+                <h5 class="mb-0">Laporan Penjualan</h5>
+                <form method="POST" action="{{ url('cetak-penjualan') }}">
+                    @csrf
+                    <table class="table table-sm">
+                        <tr>
+                            <td><label class="mt-2" for="daterange">Cari Tanggal Penjualan :</label></td>
+                            <td><input type="text" class="form-control daterange" name="daterange" id="daterange"></td>
+                            <td><input type="submit" class="btn bg-gradient-success btn-sm mt-1" value="CETAK"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="container mt-5">
@@ -44,7 +54,16 @@
   </main>
   <script>
         $(function() {
-            $('#users-table').DataTable({
+
+            $('.daterange').daterangepicker({
+                locale: {
+                    format: 'DD-MM-YYYY'
+                },
+                startDate: moment().startOf('year'),
+                endDate: moment()
+            });
+
+            var jualTable = $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
                 order: [[5, 'asc']],
@@ -59,6 +78,10 @@
                 },
                 ajax: {
                   url: '{{ route("laporanPenjualan") }}',
+                  data: function(d){
+                    d.startDate = $('.daterange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm:ss');
+                    d.endDate = $('.daterange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm:ss');
+                  }
 
                 }, // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
@@ -97,6 +120,10 @@
                     { width: '120px', targets: [ 0 ] },
                     { className: 'dt-center', targets: [ 1, 2, 4, 5 ] },
                 ],
+            });
+
+            $('.daterange').change(function(){
+                jualTable.draw();
             });
         });
     </script>

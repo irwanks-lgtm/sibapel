@@ -39,7 +39,7 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
         return [
             'G' => 'Rp #,##0_-',
             'H' => 'Rp #,##0_-',
-            'L' => NumberFormat::FORMAT_DATE_DATETIME,
+            'M' => NumberFormat::FORMAT_DATE_DATETIME,
            ];
     }
 
@@ -56,6 +56,7 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
             $dataBarang->harga_beli,
             $dataBarang->harga_jual,
             $dataBarang->jenis_barang,
+            $dataBarang->deskripsi,
             $dataBarang->kode_rak,
             $dataBarang->jml_min,
             Date::dateTimeToExcel(date_create($dataBarang->tgl_masuk))
@@ -80,6 +81,7 @@ class BarangExport implements FromCollection, WithStyles, WithMapping, WithColum
             'Harga Beli',
             'Harga Jual',
             'Jenis Barang',
+            'Deskripsi',
             'Kode Rak',
             'Jumlah Min',
             'Tgl Masuk'

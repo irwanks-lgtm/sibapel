@@ -1,5 +1,4 @@
 @extends('layouts.user_type.auth')
-
 @section('content')
 <link
     rel="stylesheet"
@@ -84,5 +83,4 @@
         </div>
     </div>
 </div>
- 
 @endsection

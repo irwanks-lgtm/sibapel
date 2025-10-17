@@ -9,21 +9,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.1.8/af-2.7.0/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/cr-2.0.4/date-1.5.4/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.3/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.1/sp-2.3.3/sl-2.1.0/sr-1.4.1/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/moment.js/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg animate__animated animate__bounceInLeft animate__delay-1s">
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-          <div class="card mb-4">
+          <div class="card mb-2">
             <div class="card-header d-flex flex-row justify-content-between">
-                <div>
-                    <h5 class="mb-0">Laporan Transaksi</h5>
-                </div>
-                  <a href="{{url('transaksi')}}" class="btn bg-gradient-success btn-sm mb-0 mx-2" type="button">CETAK</a>
+                <h5 class="mb-0">Laporan Transaksi</h5>
+            
+            <form method="POST" action="{{ url('/cetakTrx') }}">
+                @csrf
+            <table class="table table-sm">
+                <tr>
+                    <td><label class="mt-2" for="daterange">Cari Tanggal Transaksi :</label></td>
+                    <td><input type="text" class="form-control daterange" name="daterange" id="daterange"></td>
+                    <td><input type="submit" class="btn bg-gradient-success btn-sm mt-1" value="CETAK"></td>
+                </tr>
+            </table>
+            </form>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="container mt-5">
+              <div class="container mt-1">
                   <table class="table table-bordered" id="users-table">
                       <thead class="table-success">
                          <tr>
@@ -48,9 +59,18 @@
   </script>
   <script>
         $(function() {
-            $('#users-table').DataTable({
+            $('.daterange').daterangepicker({
+                locale: {
+                    format: 'DD-MM-YYYY'
+                },
+                startDate: moment().startOf('year'),
+                endDate: moment()
+            });
+
+            var trxTable = $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
+                autowidth: false,
                 order: [[5, 'asc']],
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/2.3.0/i18n/id.json',
@@ -63,6 +83,10 @@
                 },
                 ajax: {
                   url: '{{ route("laporan.transaksi") }}',
+                  data: function(d){
+                    d.startDate = $('.daterange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm:ss');
+                    d.endDate = $('.daterange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm:ss');
+                  }
 
                 }, // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
@@ -73,7 +97,7 @@
                         data: 'nama_barang',
                         name: 'nama_barang',
                         render: function (data, type, row) {
-                            return type === 'display' && data.length > 15 ? data.substr(0, 15) + '…' : data;
+                            return type === 'display' && data.length > 25 ? data.substr(0, 25) + '…' : data;
                         }
                     },
                     {
@@ -104,10 +128,12 @@
                     },
                 ],
                 columnDefs: [
-                    { width: '70px', targets: [ 2, 3 ] },
-                    { width: '110px', targets: [ 1 ] },
-                    { className: 'dt-center', targets: '_all' },
+                    { className: 'dt-center', targets: [ 0, 2, 3, 5, 6 ] },
                 ]
+            });
+
+            $('.daterange').change(function(){
+                trxTable.draw();
             });
         });
     </script>

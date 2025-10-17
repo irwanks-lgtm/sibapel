@@ -12,18 +12,18 @@
           <div class="card mb-4">
             <div class="card-header d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Tambah Stok Opname</h5>
+                    <h5 class="mb-0">Tambah Validasi Stok</h5>
                 </div>
                 <a href="{{ url()->previous() }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">< &nbsp; Kembali</a>
               </div>
-              
+
               <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-              <form method="POST" action="{{ url('/tambah-opname') }}" autocomplete="off">    
-                @csrf 
+              <form method="POST" action="{{ url('/tambah-opname') }}" autocomplete="off">
+                @csrf
                 <table>
                   <tr>
-                    <td style="width:90px"><label>Kode Rak</label></td>
+                    <td style="width:150px"><label>Kode Rak</label></td>
                     <td>
                       <select class="form-select my-2" name="rak" id="rak" style="width:90px">
                         <?php foreach ($rak as $r) { ?>
@@ -33,7 +33,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><label>PIC</label></td>
+                    <td><label>Penanggung Jawab</label></td>
                     <td>
                       <select class="form-select my-2" name="pic" id="pic" style="width:170px">
                         <?php foreach($pic as $u){ ?>

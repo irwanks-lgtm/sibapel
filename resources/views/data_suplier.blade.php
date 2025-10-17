@@ -29,8 +29,8 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">alamat</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no. hp</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">pembayaran</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action </th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                     </tr>
                   </thead>
                   <?php foreach($suplier as $sup) { ?>
@@ -64,7 +64,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  <?php } ?>                   
+                  <?php } ?>
                 </table>
               </div>
             </div>

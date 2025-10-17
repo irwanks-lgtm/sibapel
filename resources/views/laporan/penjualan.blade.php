@@ -11,7 +11,7 @@
 			<h4>Export Laporan Penjualan</h4>
 		</center>
 
-		<a href="/download/laporan-penjualan" class="btn btn-success my-3"  target="_blank">EXPORT EXCEL</a>
+		<a href="/download/laporan-penjualan/{{$daterange}}" class="btn btn-success my-3"  target="_blank">EXPORT EXCEL</a>
         <a href="{{ url()->previous() }}" class="btn bg-warning my-3" style="float:right;" type="button">Kembali</a>
 
 		<table class='table table-bordered'>

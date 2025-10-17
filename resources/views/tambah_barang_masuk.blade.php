@@ -85,10 +85,7 @@
         </div>
       </div>
   </main>
-
-
 <script type="text/javascript">
-
   $('#nmbrg').change(function(){
     var id = $(this).val();
     var url = '{{ route("getDetails", ":nmbrg") }}';
@@ -140,4 +137,4 @@
       });
   });
 </script>
-  @endsection
+@endsection

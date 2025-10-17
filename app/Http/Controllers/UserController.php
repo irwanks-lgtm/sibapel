@@ -43,8 +43,8 @@ class UserController extends Controller
             'role' => $req->role,
             'updated_at' => now()
         ]);
-        
-        return redirect('data-pengguna');
+
+        return redirect('data-pengguna')->with(['success'=>'Data Pengguna Berhasil Diperbarui']);
     }
 
     public function tambah(Request $req){
@@ -98,14 +98,18 @@ class UserController extends Controller
                 'role' => $req->role,
                 'created_at' => now()
             ]);
-            return redirect('data-pengguna');
+            return redirect('data-pengguna')->with(['success'=>'Data Pengguna Berhasil Di Tambah']);
         }catch(ValidationException $excep){
-            return redirect('tambah-pengguna');
+            return redirect('tambah-pengguna')->with(['failed'=>'Data Pengguna Gagal Di Tambah']);
         }
     }
 
     public function hapus($id){
-        User::where('id_pengguna', $id)->delete();
-        return redirect('data-pengguna')->with(['success'=>'Data Berhasil di Hapus']);
+        try{
+            User::where('id_pengguna', $id)->delete();
+            return redirect('data-pengguna')->with(['success'=>'Data Berhasil di Hapus']);
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect('data-pengguna')->with(['failed'=>'Data Pengguna Tidak Dapat Di Hapus, Karena Masih Digunakan']);
+        }
     }
 }

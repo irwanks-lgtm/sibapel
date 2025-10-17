@@ -6,6 +6,26 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
   <script src="https://kit.fontawesome.com/af4366748c.js" crossorigin="anonymous"></script>
+
+<style>
+/* set the container to scroll */
+
+.notes_scroll {
+  height: 100%;
+  width:100%;
+  padding: 25px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* hide scrollbar */
+
+.notes_scroll::-webkit-scrollbar {
+  display: none;
+}
+
+  </style>
   <div class="row animate__animated animate__bounceInLeft animate__delay-1s">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
       <div class="card">
@@ -92,15 +112,15 @@
   </div>
 
   <div class="row mt-4 animate__animated animate__bounceInLeft animate__delay-1s">
-    <div class="col-lg-6  mb-4">
-      <div class="card z-index-3">
+    <div class="col-lg-6 mb-4">
+      <div class="card z-index-1">
         <div class="card-body p-3">
-          <div class="bg-gradient-light border-radius-lg py-3 px-2 mb-3">
-            <h6 class="ms-2 mt-4 mb-0"> Barang Hampir Habis </h6>
+          <div class="table-wrapper bg-gradient-light border-radius-lg py-3 px-2 mb-2" style="height:450px;">
+            <h6 class="ms-2 mt-2 mb-0"> Barang Hampir Habis </h6>
           <p class="text-sm ms-2">List barang hampir habis </p>
-          <div class="container border-radius-lg">
+          <div class="border-radius-lg" style="max-height:80%;overflow-y:auto;">
           <?php if($stokbrg->isEmpty()) { echo "<div class=\"text-center\">Tidak Ada Barang Hampir Habis</div>";} else{?>
-            <table class="table table-stripped">
+            <table class="table table-stripped mb-2">
             <?php $i=1; foreach($stokbrg as $sb) { ?>
               <tr>
                 <td>
@@ -120,10 +140,15 @@
     </div>
     <div class="col-lg-6">
       <div class="card z-index-2">
-        <div class="card-header pb-0">
-          <h6 class="ms-2 mt-4 mb-0"> Barang Terjual </h6>
-          <p class="text-sm ms-2">List barang paling laku </p>
-          <div class="container border-radius-lg">
+        <div class="card-header table-wrapper pb-0" style="height:480px;">
+          <h6 class="ms-2 mt-2 mb-0"> Barang Terjual </h6>
+          <p class="text-sm ms-2">List barang paling laku pada bulan
+          <span class="text-bold text-capitalized"><?php
+            $bln = (int) date_format(date_create(now()), "m");
+            $namaBln = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            echo $namaBln[$bln-1];
+          ?><span></p>
+          <div class="container border-radius-lg" style="max-height:80%;overflow-y:auto;">
           <?php if($hotsale->isEmpty()) { echo "<div class=\"text-center\">Belum Ada Barang Terjual</div>";} else{?>
             <table class="table table-stripped">
             <?php $i=1; foreach($hotsale as $hs) { ?>

@@ -14,20 +14,20 @@
           <div class="card mb-4">
             <div class="card-header d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Tambah Data Barang</h5>
+                    <h5 class="mb-0">Tambah Data Barang Baru</h5>
                 </div>
                 <a href="{{ url()->previous() }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">< &nbsp; Kembali</a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-                  <form method="POST" action="{{ url('/tambah') }}" autocomplete="off">    
-                  @csrf              
+                  <form method="POST" action="{{ url('/tambah') }}" autocomplete="off">
+                  @csrf
                     <div class="mb-2">
                       <table>
                         <tr>
                           <td><label>Suplier</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                            <select name="suplier" id="inputSuplier" class="form-select my-2" style="width:70%;">
+                            <select name="suplier" id="inputSuplier" class="form-select my-2">
                               <option selected>Pilih Suplier...</option>
                               <?php foreach($suplier as $sup) { ?>
                               <option value="<?php echo $sup->id_suplier; ?>"><?php echo $sup->nama_suplier; ?></option>
@@ -75,7 +75,14 @@
                           </td>
                           <td><label class="mx-2">Satuan</label></td>
                           <td class="form-inline" style="padding-left: 10px;">
-                            <input type="text" class="form-control" placeholder="Satuan" name="satuan" id="satuan">
+                            <select name="satuan" id="satuan" class="form-select my-2">
+                              <option selected>Pilih Satuan...</option>
+                              <option value="pcs">pcs</option>
+                              <option value="set">set</option>
+                              <option value="box">box</option>
+                              <option value="lusin">lusin</option>
+                              <option value="unit">unit</option>
+                            </select>
                             @error('satuan')
                                 <div class="text-xs text-danger">{{$message}}</div>
                               @enderror
@@ -97,18 +104,28 @@
                               @enderror
                           </td>
                         </tr>
-                        <tr>
+                         <tr>
                           <td><label>Jenis Barang</label></td>
                           <td colspan="3" style="padding-left: 20px;">
                             <select name="jenis" id="inputJenis" class="form-select my-2" style="width:50%;">
                               <option selected>Pilih Jenis Barang...</option>
                               <option value="Elektronik">Elektronik</option>
-                              <option value="Tableware">Tableware</option>
-                              <option value="Perlengkapan Dapur">Perlengkapan Dapur</option>
-                              <option value="Pot Bunga">Pot Bunga</option>
-                              <option value="Furnitur">Furnitur</option>
+                              <option value="Peralatan Dapur">Peralatan Dapur</option>
+                              <option value="Peralatan Makan">Peralatan Makan</option>
+                              <option value="Peralatan Kebersihan">Peralatan Kebersihan</option>
+                              <option value="Dekorasi">Dekorasi</option>
+                              <option value="Perabotan">Perabotan</option>
                             </select>
                             @error('jenis')
+                                <div class="text-xs text-danger">{{$message}}</div>
+                              @enderror
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Deskripsi Barang</label></td>
+                          <td colspan="3" style="padding-left: 20px;">
+                          <textarea class="form-control my-2" name="deskripsi" id="deskripsi" cols="30" rows="10"></textarea>
+                          @error('deskripsi')
                                 <div class="text-xs text-danger">{{$message}}</div>
                               @enderror
                           </td>
@@ -160,12 +177,12 @@ function formatRupiah(angka, prefix)
         sisa     = split[0].length % 3,
         rupiah     = split[0].substr(0, sisa),
         ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
-        
+
     if (ribuan) {
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
-    
+
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }

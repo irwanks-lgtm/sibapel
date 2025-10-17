@@ -12,12 +12,14 @@
           <div class="card mb-4">
             <div class="card-header d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Stok Opname</h5>
+                    <h5 class="mb-0">Validasi Stok</h5>
                 </div>
-                <a href="/buat-opname" class="btn bg-gradient-primary btn-sm mb-0" type="button">Buat Stok Opname</a>
+                <?php if(Str::contains(Session::get('idUser'), 'ADM')){ ?>
+                <a href="/tambah-validasi" class="btn bg-gradient-primary btn-sm mb-0" type="button">Buat Validasi Stok</a>
+                <?php } ?>
               </div>
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
+              <div class="table-responsive p-0" id="table-stok">
                 <table class="table table-hover align-items-center mb-0">
                   <thead>
                     <tr>
@@ -32,13 +34,13 @@
                     <?php foreach ($stok as $st) { ?>
                       <tr>
                         <td>
-                          <a  href="data-opname/{{$st->kode_stok}}"  style="display: block; height: 100%;" class="text-xs font-weight-bold mb-0">{{$st->kode_stok}}</a>
+                          <a  href="data-stok/{{$st->kode_stok}}"  style="display: block; height: 100%;" class="text-xs font-weight-bold mb-0">{{$st->kode_stok}}</a>
                         </td>
                         <td>
                           <p class="text-xs font-weight-bold mb-0">{{$st->kode_rak}}</p>
                         </td>
                         <td>
-                          <p class="text-xs font-weight-bold mb-0">{{$st->waktu_stok}}</p>
+                          <p class="text-xs font-weight-bold mb-0">{{date_format(date_create($st->created_at), 'd M Y H:i:s')}}</p>
                         </td>
                         <td>
                           <p class="text-xs text-capitalize font-weight-bold mb-0">{{$st->nama_pengguna}}</p>
@@ -50,10 +52,24 @@
                      <?php } ?>
                   </tbody>
                 </table>
+                <!-- Pagination -->
+                    <div class="d-flex justify-content-center my-2">
+                        {{ $stok->links() }}
+                    </div>
               </div>
             </div>
           </div>
         </div>
       </div>
   </main>
+<script>
+    $(document).on('click', '.pagination a', function(e) {
+        e.preventDefault();
+        let url = $(this).attr('href');
+
+        $.get(url, function(data) {
+            $('#tabel-stok').html($(data).find('#tabel-stok').html());
+        });
+    });
+</script>
   @endsection

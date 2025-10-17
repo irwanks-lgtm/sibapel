@@ -15,11 +15,11 @@ return new class extends Migration
             $table->char('kode_transaksi', length: 15);
             $table->primary('kode_transaksi');
             $table->char('kode_barang', length: 15);
-            $table->foreign('kode_barang')->references('kode_barang')->on('barang');
+            $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onUpdate('cascade')->onDelete('restrict');
             $table->char('id_pengguna', length: 15);
-            $table->foreign('id_pengguna')->references('id_pengguna')->on('user');
+            $table->foreign('id_pengguna')->references('id_pengguna')->on('user')->onUpdate('cascade')->onDelete('restrict');
             $table->string('jenis_transaksi', length: 8);
-            $table->integer('jml');
+            $table->integer('jml')->unsigned();
             $table->string('harga', length: 10);
             $table->string('keterangan', length: 20)->nullable();
             $table->timestamps();

@@ -19,12 +19,22 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    protected $from_date;
+    protected $to_date;
+
+    function __construct($startDate, $endDate) {
+           $this->from_date = $startDate;
+           $this->to_date = $endDate;
+    }
+
     public function collection()
     {
-        return Transaksi::where('transaksi.jenis_transaksi', 'POS')
+        return Transaksi::where('transaksi.jenis_transaksi', 'JUAL')
         ->leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
         ->groupBy('transaksi.kode_barang')
         ->selectRaw('transaksi.*, barang.nama_barang, barang.satuan, sum(transaksi.jml) as total_brg, sum(transaksi.harga) as total_harga')
+        ->whereBetween('transaksi.created_at', [$this->from_date, $this->to_date])
         ->orderBy('created_at', 'asc')->get();
     }
 
@@ -32,7 +42,7 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
     {
         $sheet->getStyle(1)->getFont()->setBold(true);
     }
-    
+
     public function columnFormats(): array
     {
         return [
@@ -43,9 +53,9 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
 
     public function map($dataPenjualan): array
     {
-        
+
         return [
-            
+
             $dataPenjualan->kode_transaksi,
             $dataPenjualan->kode_barang,
             $dataPenjualan->nama_barang,
@@ -54,7 +64,7 @@ class PenjualanExport implements FromCollection, WithStyles, WithMapping, WithCo
             $dataPenjualan->total_harga,
             Date::dateTimeToExcel(date_create($dataPenjualan->created_at)),
             $dataPenjualan->keterangan,
-            
+
         ];
     }
 

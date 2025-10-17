@@ -19,10 +19,18 @@ class TransaksiExport implements FromCollection, WithStyles, WithMapping, WithCo
     /**
     * @return \Illuminate\Support\Collection
     */
+    
+    protected $from_date;
+    protected $to_date;
+
+    function __construct($startDate, $endDate) {
+           $this->from_date = $startDate;
+           $this->to_date = $endDate;
+    }
+
     public function collection()
     {
-        return Transaksi::leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')
-        ->select('transaksi.*', 'barang.nama_barang')->orderBy('created_at', 'asc')->get();
+        return Transaksi::leftJoin('barang', 'transaksi.kode_barang', '=', 'barang.kode_barang')->select('transaksi.*', 'barang.nama_barang')->whereBetween('transaksi.created_at', [$this->from_date, $this->to_date])->orderBy('created_at', 'asc')->get();
     }
 
     public function styles(Worksheet $sheet)

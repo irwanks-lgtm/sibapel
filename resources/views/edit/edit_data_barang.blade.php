@@ -20,8 +20,8 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
             <div class="card-body" style="padding-left: 120px">
-                  <form method="POST" action="{{ url('/editbarang') }}" autocomplete="off">    
-                  @csrf              
+                  <form method="POST" action="{{ url('/editbarang') }}" autocomplete="off">
+                  @csrf
                     <div class="mb-2">
                       <table>
                         <?php foreach($barang as $brg) { ?>
@@ -39,7 +39,8 @@
                         <tr>
                           <td><label>Kode Barang</label></td>
                           <td colspan="3" style="padding-left: 20px;">
-                          <input type="text" class="form-control my-2" placeholder="Kode Barang" name="kdbrg" id="kdbrg" value="<?php echo $brg->kode_barang ?>" readonly>
+                          <input type="hidden" name="kdbrg" id="kdbrg" value="<?php echo $brg->kode_barang ?>">
+                          <input type="text" class="form-control my-2" placeholder="Kode Barang" name="kdbaru" id="kdbaru" value="<?php echo $brg->kode_barang ?>">
                           </td>
                         </tr>
                         <tr>
@@ -61,7 +62,14 @@
                           </td>
                           <td><label class="mx-2">Satuan</label></td>
                           <td class="form-inline" style="padding-left: 10px;">
-                            <input type="text" class="form-control" placeholder="Satuan" name="satuan" id="satuan" value="<?php echo $brg->satuan ?>">
+                            <select name="jenis" id="inputJenis" class="form-select my-2">
+                              <option selected>Pilih Jenis Barang...</option>
+                              <option <?php if($brg->satuan=="pcs"){ echo "selected='selected'"; } ?> value="pcs">Pcs</option>
+                              <option <?php if($brg->satuan=="set"){ echo "selected='selected'"; } ?> value="set">Set</option>
+                              <option <?php if($brg->satuan=="box"){ echo "selected='selected'"; } ?> value="box">Box</option>
+                              <option <?php if($brg->satuan=="lusin"){ echo "selected='selected'"; } ?> value="lusin">Lusin</option>
+                              <option <?php if($brg->satuan=="unis"){ echo "selected='selected'"; } ?> value="unit">Unit</option>
+                            </select>
                           </td>
                         </tr>
                         <?php if($brg->jml_brg<=$brg->jml_min){ ?>
@@ -84,6 +92,12 @@
                           </td>
                         </tr>
                         <tr>
+                          <td><label>Deskripsi</label></td>
+                          <td colspan="3" style="padding-left: 20px;">
+                          <textarea class="form-control my-2" name="deskripsi" id="deskrispi" cols="30" rows="10"><?php echo $brg->deskripsi ?></textarea>
+                          </td>
+                        </tr>
+                        <tr>
                           <td><label>Jumlah Minimum</label></td>
                           <td colspan="3" style="padding-left: 20px;" >
                             <input type="text" class="form-control my-2" name="jml_min" id="jmlmin" placeholder="Jumlah Minimum" value="<?php echo $brg->jml_min ?>" style="width:30%;">
@@ -95,10 +109,11 @@
                             <select name="jenis" id="inputJenis" class="form-select my-2" style="width:50%;">
                               <option selected>Pilih Jenis Barang...</option>
                               <option <?php if($brg->jenis_barang=="Elektronik"){ echo "selected='selected'"; } ?> value="Elektronik">Elektronik</option>
-                              <option <?php if($brg->jenis_barang=="Tableware"){ echo "selected='selected'"; } ?> value="Tableware">Tableware</option>
-                              <option <?php if($brg->jenis_barang=="Perlengkapan Dapur"){ echo "selected='selected'"; } ?> value="Perlengkapan Dapur">Perlengkapan Dapur</option>
-                              <option <?php if($brg->jenis_barang=="Pot Bunga"){ echo "selected='selected'"; } ?> value="Pot Bunga">Pot Bunga</option>
-                              <option <?php if($brg->jenis_barang=="Furnitur"){ echo "selected='selected'"; } ?> value="Furnitur">Furnitur</option>
+                              <option <?php if($brg->jenis_barang=="Peralatan Dapur"){ echo "selected='selected'"; } ?> value="Peralatan Dapur">Peralatan Dapur</option>
+                              <option <?php if($brg->jenis_barang=="Peralatan Makan"){ echo "selected='selected'"; } ?> value="Peralatan Makan">Peralatan Makan</option>
+                              <option <?php if($brg->jenis_barang=="Peralatan Kebersihan"){ echo "selected='selected'"; } ?> value="Peralatan Kebersihan">Peralatan Kebersihan</option>
+                              <option <?php if($brg->jenis_barang=="Dekorasi"){ echo "selected='selected'"; } ?> value="Dekorasi">Dekorasi</option>
+                              <option <?php if($brg->jenis_barang=="Perabotan"){ echo "selected='selected'"; } ?> value="Perabotan">Perabotan</option>
                             </select>
                           </td>
                         </tr>
@@ -137,12 +152,12 @@ function formatRupiah(angka, prefix)
         sisa     = split[0].length % 3,
         rupiah     = split[0].substr(0, sisa),
         ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
-        
+
     if (ribuan) {
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
-    
+
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }

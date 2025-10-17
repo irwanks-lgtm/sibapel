@@ -18,7 +18,6 @@ class SessionsController extends Controller
 
     public function store(Request $request) : RedirectResponse
     {
-
         $attributes = request()->validate([
             'email'=>'required|email',
             'password'=>'required'
@@ -31,7 +30,7 @@ class SessionsController extends Controller
 
             Session::put('name', $name['nama_pengguna']);
             Session::put('idUser', $name['id_pengguna']);
-            return redirect('dashboard')->with(['success'=>'Selamat Datang di SIBAPEL']);
+            return redirect('beranda')->with(['success'=>'Selamat Datang di SIBAPEL']);
         }
         else{
             return back()->withErrors(['loginauth'=>'Email atau Password Anda Salah']);
@@ -40,7 +39,6 @@ class SessionsController extends Controller
 
     public function destroy()
     {
-
         Auth::logout();
         Session::flush();
         return redirect('/login')->with(['failed'=>'Anda telah keluar dari SIBAPEL']);
